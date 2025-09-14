@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Cyber Elite - Oualid Benheniche</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary: #00f3ff;
+      --secondary: #6e44ff;
+      --accent: #ff2a6d;
+      --dark: #0c1230;
+      --darker: #070b1d;
+      --light: #d1f7ff;
+    }
+    
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Exo 2', sans-serif;
+      background: linear-gradient(135deg, var(--darker), var(--dark));
+      color: var(--light);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Effet de particules 3D */
+    #particles-3d {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    /* Navigation holographique */
+    .cyber-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: rgba(7, 11, 29, 0.8);
+      border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--primary);
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+
+    /* Conteneur principal */
+    .main-container {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 120px auto 50px;
+      padding: 20px;
+    }
+
+    /* En-tête avec effet néon */
+    .hero-section {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+      padding: 40px 0;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.8rem;
+      color: var(--light);
+      margin-bottom: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cyber-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 0 25px rgba(110, 68, 255, 0.5);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      animation: badgeGlow 2s infinite alternate;
+    }
+
+    @keyframes badgeGlow {
+      0% { box-shadow: 0 0 25px rgba(110, 68, 255, 0.5); }
+      100% { box-shadow: 0 0 40px rgba(110, 68, 255, 0.8), 0 0 70px rgba(255, 42, 109, 0.6); }
+    }
+
+    /* Grille de contenu */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    /* Cartes avec effet 3D */
+    .cyber-card {
+      background: linear-gradient(145deg, rgba(12, 18, 48, 0.8), rgba(7, 11, 29, 0.8));
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 243, 255, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cyber-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(0, 243, 255, 0.1), rgba(110, 68, 255, 0.1));
+      clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+      z-index: -1;
+    }
+
+    .cyber-card:hover {
+      transform: translateY(-10px) rotateX(2deg);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 243, 255, 0.3);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      font-size: 24px;
+      box-shadow: 0 0 15px rgba(110, 68, 255, 0.5);
+    }
+
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary), var(--light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Liste des compétences */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .skill-item {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 4px solid var(--primary);
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+
+    .skill-item:hover {
+      transform: translateX(5px);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .skill-icon {
+      color: var(--primary);
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    /* Section expérience */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .timeline:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--primary), var(--secondary));
+      border-radius: 3px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .timeline-item:before {
+      content: '';
+      position: absolute;
+      left: -36px;
+      top: 25px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .timeline-date {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .timeline-content h4 {
+      color: var(--light);
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    /* Section de contact */
+    .contact-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-item:hover {
+      transform: translateX(5px);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-right: 15px;
+      box-shadow: 0 0 15px rgba(110, 68, 255, 0.5);
+    }
+
+    /* Carte de profil */
+    .profile-card {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .profile-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 4px solid var(--primary);
+      box-shadow: 0 0 30px var(--primary);
+      margin: 0 auto 25px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-image:after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), transparent, var(--secondary));
+      animation: rotateGradient 5s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotateGradient {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .profile-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, var(--primary), var(--light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .profile-title {
+      color: var(--light);
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .stat-item {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 243, 255, 0.2);
+    }
+
+    .stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      color: var(--light);
+      font-size: 0.9rem;
+    }
+
+    /* Section réseaux sociaux améliorée */
+    .socials-section {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .socials-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      background: linear-gradient(45deg, var(--primary), var(--light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .socials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .social-card {
+      background: linear-gradient(145deg, rgba(12, 18, 48, 0.8), rgba(7, 11, 29, 0.8));
+      border-radius: 15px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(0, 243, 255, 0.1);
+    }
+
+    .social-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 243, 255, 0.2);
+    }
+
+    .social-card-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .social-card:hover .social-card-icon {
+      transform: scale(1.1);
+    }
+
+    .social-card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .social-card-desc {
+      color: var(--light);
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .social-card-link {
+      display: inline-block;
+      padding: 8px 20px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .social-card-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(110, 68, 255, 0.4);
+    }
+
+    /* Couleurs spécifiques pour chaque réseau social */
+    .facebook { background: linear-gradient(135deg, #3b5998, #2d4373); }
+    .whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
+    .telegram { background: linear-gradient(135deg, #0088cc, #005580); }
+    .instagram { background: linear-gradient(135deg, #E1306C, #833AB4); }
+    .gmail { background: linear-gradient(135deg, #D44638, #B23121); }
+    .linkedin { background: linear-gradient(135deg, #0077B5, #005582); }
+    .twitter { background: linear-gradient(135deg, #1DA1F2, #0d8bd9); }
+
+    /* Footer cybernétique */
+    .cyber-footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 80px;
+      border-top: 1px solid rgba(0, 243, 255, 0.2);
+      position: relative;
+    }
+
+    .cyber-footer:before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: 0 0 5px 5px;
+    }
+
+    .footer-text {
+      color: var(--light);
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-5px) rotate(10deg);
+      box-shadow: 0 5px 15px rgba(110, 68, 255, 0.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .socials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .cyber-nav {
+        flex-direction: column;
+        padding: 15px;
+      }
+      
+      .nav-links {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+      
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.3rem;
+      }
+      
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .profile-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .socials-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .social-links {
+        gap: 10px;
+      }
+      
+      .social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Arrière-plan 3D -->
+  <div id="particles-3d"></div>
+
+  <!-- Navigation -->
+  <nav class="cyber-nav">
+    <div class="logo">CYBER<span style="color: var(--accent)">ELITE</span></div>
+    <div class="nav-links">
+      <a href="#competences">Compétences</a>
+      <a href="#experience">Expérience</a>
+      <a href="#diplomes">Diplômes</a>
+      <a href="#socials">Réseaux sociaux</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Contenu principal -->
+  <div class="main-container">
+    <!-- Section hero -->
+    <section class="hero-section">
+      <h1 class="hero-title">OUALID BENHENICHE</h1>
+      <p class="hero-subtitle">Expert en Cybersécurité & Administration des Réseaux</p>
+      <div class="cyber-badge">INGÉNIEUR EN SÉCURITÉ INFORMATIQUE</div>
+    </section>
+
+    <!-- Grille de contenu -->
+    <div class="content-grid">
+      <!-- Carte de compétences -->
+      <div class="cyber-card" id="competences">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h2 class="card-title">Compétences Techniques</h2>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fab fa-windows"></i></div>
+            <div>Systèmes d'exploitation: Windows XP, Vista, 7, 8, 10, Ubuntu</div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-desktop"></i></div>
+            <div>Bureautique: Office2007, Office2013</div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-server"></i></div>
+            <div>Systèmes virtuels: VMware, VirtualBox, Hyper-V</div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
+            <div>Bases de CCNA, Réseaux</div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-globe"></i></div>
+            <div>Navigation Internet avancée</div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-tools"></i></div>
+            <div>Entretien matériel informatique</div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-wrench"></i></div>
+            <div>Dépannage Hardware/Software</div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
+            <div>Sécurité des réseaux</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte d'expérience -->
+      <div class="cyber-card" id="experience">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h2 class="card-title">Expérience Professionnelle</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2023 - Présent</div>
+            <div class="timeline-content">
+              <h4>Expert en Cybersécurité</h4>
+              <p>Gestion de la sécurité des systèmes et réseaux, analyses des vulnérabilités</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2021 - 2023</div>
+            <div class="timeline-content">
+              <h4>Sonatrach (Somik spa)</h4>
+              <p>Administration réseau et sécurité, maintenance des systèmes</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2020 - 2021</div>
+            <div class="timeline-content">
+              <h4>Stages Professionnels</h4>
+              <p>Algérie Télécom (30 jours), Mobilis Corporation (15 jours), Sonelgaz (15 jours)</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2019 - 2020</div>
+            <div class="timeline-content">
+              <h4>Certifications</h4>
+              <p>NVIDIA DLI (Fundamentals of Deep Learning), Cisco (Bases du réseautage)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte de diplômes -->
+      <div class="cyber-card" id="diplomes">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h2 class="card-title">Diplômes & Formations</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2023</div>
+            <div class="timeline-content">
+              <h4>Master en Administration et Sécurité des Réseaux</h4>
+              <p>Université Kasdi Merbah Ouargla (Bac+5)</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2021</div>
+            <div class="timeline-content">
+              <h4>Licence en Systèmes d'Information</h4>
+              <p>Université Kasdi Merbah Ouargla (Bac+3)</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2017</div>
+            <div class="timeline-content">
+              <h4>Baccalauréat</h4>
+              <p>Diplôme de fin d'études secondaires</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2016</div>
+            <div class="timeline-content">
+              <h4>Brevet de Technicien en Tourisme</h4>
+              <p>Option: Agence de Voyage</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte de profil -->
+      <div class="cyber-card profile-card">
+        <div class="profile-image">
+          <img id="profilePhoto" src="" alt="Oualid Benheniche">
+        </div>
+        <h2 class="profile-name">Oualid Benheniche</h2>
+        <p class="profile-title">Ingénieur en Cybersécurité</p>
+        
+        <div class="profile-stats">
+          <div class="stat-item">
+            <div class="stat-value">5+</div>
+            <div class="stat-label">Ans d'expérience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">20+</div>
+            <div class="stat-label">Projets réalisés</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Certifications</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section réseaux sociaux -->
+    <div class="socials-section" id="socials">
+      <h2 class="socials-title">Retrouvez-moi sur les réseaux sociaux</h2>
+      <div class="socials-grid">
+        <div class="social-card">
+          <div class="social-card-icon facebook">
+            <i class="fab fa-facebook-f"></i>
+          </div>
+          <h3 class="social-card-title">Facebook</h3>
+          <p class="social-card-desc">Suivez-moi pour des actualités en cybersécurité</p>
+          <a href="https://www.facebook.com/share/1XgAkNNRYQ/" class="social-card-link" target="_blank">Me suivre</a>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-card-icon whatsapp">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <h3 class="social-card-title">WhatsApp</h3>
+          <p class="social-card-desc">Contactez-moi directement pour discuter</p>
+          <a href="https://wa.me/qr/KNC23ELNRNGQF1" class="social-card-link" target="_blank">Me contacter</a>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-card-icon telegram">
+            <i class="fab fa-telegram-plane"></i>
+          </div>
+          <h3 class="social-card-title">Telegram</h3>
+          <p class="social-card-desc">Rejoignez mon canal pour des conseils sécurité</p>
+          <a href="https://t.me/WALID19981998" class="social-card-link" target="_blank">Me rejoindre</a>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-card-icon instagram">
+            <i class="fab fa-instagram"></i>
+          </div>
+          <h3 class="social-card-title">Instagram</h3>
+          <p class="social-card-desc">Découvrez mon quotidien de expert en sécurité</p>
+          <a href="https://www.instagram.com/walidbenhaniche2?igsh=Z3I0Nm13b2gyc2Nn" class="social-card-link" target="_blank">Me suivre</a>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-card-icon gmail">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3 class="social-card-title">Gmail</h3>
+          <p class="social-card-desc">Envoyez-moi un email pour toute collaboration</p>
+          <a href="mailto:walidcom1999@gmail.com" class="social-card-link">Envoyer un email</a>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-card-icon linkedin">
+            <i class="fab fa-linkedin-in"></i>
+          </div>
+          <h3 class="social-card-title">LinkedIn</h3>
+          <p class="social-card-desc">Connectons-nous professionnellement</p>
+          <a href="https://www.linkedin.com/in/walid-benhaniche-71671a248" class="social-card-link" target="_blank">Me connecter</a>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-card-icon twitter">
+            <i class="fab fa-twitter"></i>
+          </div>
+          <h3 class="social-card-title">Twitter</h3>
+          <p class="social-card-desc">Suivez mes thoughts sur la cybersécurité</p>
+          <a href="https://x.com/WBenhaniche" class="social-card-link" target="_blank">Me suivre</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section de contact -->
+    <div class="contact-section" id="contact">
+      <div class="cyber-card">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-id-card"></i>
+          </div>
+          <h2 class="card-title">Informations Personnelles</h2>
+        </div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div>
+              <strong>Date de naissance:</strong> 09/06/1998 à Ouargla
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <strong>Adresse:</strong> Cité sidi chikh mekhadma Ouargla
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-flag"></i>
+            </div>
+            <div>
+              <strong>Nationalité:</strong> Algérienne
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <div>
+              <strong>Situation familiale:</strong> Célibataire
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cyber-card">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-address-book"></i>
+          </div>
+          <h2 class="card-title">Contact</h2>
+        </div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div>
+              <strong>Téléphone:</strong> (+213) 697 88 77 92
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <strong>Email:</strong> walidcom1999@gmail.com
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-language"></i>
+            </div>
+            <div>
+              <strong>Langues:</strong> Arabe, Français, Anglais
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-car"></i>
+            </div>
+            <div>
+              <strong>Permis de conduire:</strong> B
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="cyber-footer">
+    <p class="footer-text">© 2023 Oualid Benheniche - Tous droits réservés</p>
+    <div class="social-links">
+      <a href="https://www.facebook.com/share/1XgAkNNRYQ/" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://wa.me/qr/KNC23ELNRNGQF1" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://t.me/WALID19981998" class="social-link" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+      <a href="https://www.instagram.com/walidbenhaniche2?igsh=Z3I0Nm13b2gyc2Nn" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="mailto:walidcom1999@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/walid-benhaniche-71671a248" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://x.com/WBenhaniche" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
+
+  <!-- Script pour l'arrière-plan 3D -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Configuration de l'arrière-plan 3D
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-3d', {
+        particles: {
+          number: { value: 100, density: { enable: true, value_area: 800 } },
+          color: { value: "#00f3ff" },
+          shape: {
+            type: "circle",
+            stroke: { width: 0, color: "#000000" },
+            polygon: { nb_sides: 5 }
+          },
+          opacity: {
+            value: 0.5,
+            random: true,
+            anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+          },
+          size: {
+            value: 3,
+            random: true,
+            anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+          },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#6e44ff",
+            opacity: 0.4,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 2,
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: { enable: false, rotateX: 600, rotateY: 1200 }
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "grab" },
+            onclick: { enable: true, mode: "push" },
+            resize: true
+          },
+          modes: {
+            grab: { distance: 140, line_linked: { opacity: 1 } },
+            push: { particles_nb: 4 }
+          }
+        },
+        retina_detect: true
+      });
+
+      // Charger l'image de profil
+      const profilePhoto = document.getElementById('profilePhoto');
+      profilePhoto.src = "V.jpg";
+      profilePhoto.onerror = function() {
+        this.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><rect width='200' height='200' fill='%230c1230'/><text x='100' y='100' font-family='Arial' font-size='20' fill='%2300f3ff' text-anchor='middle' dominant-baseline='middle'>WB</text></svg>";
+      };
+    });
+  </script>
+</body>
+</html>
