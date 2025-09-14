@@ -30,6 +30,7 @@
       color: var(--light);
       overflow-x: hidden;
       position: relative;
+      scroll-behavior: smooth;
     }
 
     /* Effet de particules 3D */
@@ -514,6 +515,7 @@
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       border: 1px solid rgba(0, 243, 255, 0.1);
+      cursor: pointer;
     }
 
     .social-card:hover {
@@ -624,6 +626,63 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Styles ajoutés pour améliorer l'accessibilité */
+    .social-card a {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .clickable-card {
+      cursor: pointer;
+    }
+    
+    .social-card-link.disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .social-card-link.disabled:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Styles pour le bouton de retour en haut */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
   </style>
 </head>
 <body>
@@ -733,24 +792,22 @@
               <h4>Certifications</h4>
               <p>NVIDIA DLI (Fundamentals of Deep Learning), Cisco (Bases du réseautage)</p>
             </div>
-             </div>
-               <div class="timeline-item">
+          </div>
+          <div class="timeline-item">
             <div class="timeline-date">2019 - 2024</div>
             <div class="timeline-content">
               <h4>Bonne expérience dans le domaine des communications (Sans certificat de travail)</h4>
-              <p>⚙️ Installation et raccordement de câbles à fibre optique (FTTH/FTTX).
-              </p>
+              <p>⚙️ Installation et raccordement de câbles à fibre optique (FTTH/FTTX).</p>
               <p>⚙️ Maîtrise du processus d'épissure des fibres à l'aide d'une soudeuse par fusion selon des normes strictes.</p>
               <p>⚙️ Test et inspection de la qualité des connexions à l'aide d'appareils de mesure tels qu'un OTDR et un wattmètre.</p>
               <p>⚙️ Réalisation des travaux de maintenance, identification et réparation des défauts.</p>
             </div>
           </div>
-             <div class="timeline-item">
+          <div class="timeline-item">
             <div class="timeline-date">2025 - 2026</div>
             <div class="timeline-content">
               <h4>Statut vers le service national</h4>
               <p>accompli|</p>
-               </div>
             </div>
           </div>
         </div>
@@ -825,58 +882,70 @@
     <div class="socials-section" id="socials">
       <h2 class="socials-title">Retrouvez-moi sur les réseaux sociaux</h2>
       <div class="socials-grid">
-        <div class="social-card">
-          <div class="social-card-icon facebook">
-            <i class="fab fa-facebook-f"></i>
-          </div>
-          <h3 class="social-card-title">Facebook</h3>
-          <p class="social-card-desc">Suivez-moi pour des actualités en cybersécurité</p>
-          <a href="https://www.facebook.com/votreprofil" class="social-card-link" target="_blank">Me suivre</a>
+        <div class="social-card clickable-card" onclick="window.open('https://www.facebook.com/share/1XgAkNNRYQ/', '_blank')">
+          <a href="https://www.facebook.com/share/1XgAkNNRYQ/" target="_blank">
+            <div class="social-card-icon facebook">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <h3 class="social-card-title">Facebook</h3>
+            <p class="social-card-desc">Suivez-moi pour des actualités en cybersécurité</p>
+            <span class="social-card-link">Me suivre</span>
+          </a>
         </div>
         
-        <div class="social-card">
-          <div class="social-card-icon whatsapp">
-            <i class="fab fa-whatsapp"></i>
-          </div>
-          <h3 class="social-card-title">WhatsApp</h3>
-          <p class="social-card-desc">Contactez-moi directement pour discuter</p>
-          <a href="https://wa.me/213697887792" class="social-card-link" target="_blank">Me contacter</a>
+        <div class="social-card clickable-card" onclick="window.open('https://wa.me/qr/KNC23ELNRNGQF1', '_blank')">
+          <a href="https://wa.me/qr/KNC23ELNRNGQF1" target="_blank">
+            <div class="social-card-icon whatsapp">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <h3 class="social-card-title">WhatsApp</h3>
+            <p class="social-card-desc">Contactez-moi directement pour discuter</p>
+            <span class="social-card-link">Me contacter</span>
+          </a>
         </div>
         
-        <div class="social-card">
-          <div class="social-card-icon telegram">
-            <i class="fab fa-telegram-plane"></i>
-          </div>
-          <h3 class="social-card-title">Telegram</h3>
-          <p class="social-card-desc">Rejoignez mon canal pour des conseils sécurité</p>
-          <a href="https://t.me/votreprofil" class="social-card-link" target="_blank">Me rejoindre</a>
+        <div class="social-card clickable-card" onclick="window.open('https://t.me/WALID19981998', '_blank')">
+          <a href="https://t.me/WALID19981998" target="_blank">
+            <div class="social-card-icon telegram">
+              <i class="fab fa-telegram-plane"></i>
+            </div>
+            <h3 class="social-card-title">Telegram</h3>
+            <p class="social-card-desc">Rejoignez mon canal pour des conseils sécurité</p>
+            <span class="social-card-link">Me rejoindre</span>
+          </a>
         </div>
         
-        <div class="social-card">
-          <div class="social-card-icon instagram">
-            <i class="fab fa-instagram"></i>
-          </div>
-          <h3 class="social-card-title">Instagram</h3>
-          <p class="social-card-desc">Découvrez mon quotidien de expert en sécurité</p>
-          <a href="https://www.instagram.com/votreprofil" class="social-card-link" target="_blank">Me suivre</a>
+        <div class="social-card clickable-card" onclick="window.open('https://www.instagram.com/walidbenhaniche2?igsh=Z3I0Nm13b2gyc2Nn', '_blank')">
+          <a href="https://www.instagram.com/walidbenhaniche2?igsh=Z3I0Nm13b2gyc2Nn" target="_blank">
+            <div class="social-card-icon instagram">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <h3 class="social-card-title">Instagram</h3>
+            <p class="social-card-desc">Découvrez mon quotidien de expert en sécurité</p>
+            <span class="social-card-link">Me suivre</span>
+          </a>
         </div>
         
-        <div class="social-card">
-          <div class="social-card-icon gmail">
-            <i class="fas fa-envelope"></i>
-          </div>
-          <h3 class="social-card-title">Gmail</h3>
-          <p class="social-card-desc">Envoyez-moi un email pour toute collaboration</p>
-          <a href="mailto:walidcom1999@gmail.com" class="social-card-link">Envoyer un email</a>
+        <div class="social-card clickable-card" onclick="window.location.href='mailto:walidcom1999@gmail.com'">
+          <a href="mailto:walidcom1999@gmail.com">
+            <div class="social-card-icon gmail">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <h3 class="social-card-title">Gmail</h3>
+            <p class="social-card-desc">Envoyez-moi un email pour toute collaboration</p>
+            <span class="social-card-link">Envoyer un email</span>
+          </a>
         </div>
         
-        <div class="social-card">
-          <div class="social-card-icon linkedin">
-            <i class="fab fa-linkedin-in"></i>
-          </div>
-          <h3 class="social-card-title">LinkedIn</h3>
-          <p class="social-card-desc">Connectons-nous professionnellement</p>
-          <a href="https://www.linkedin.com/in/votreprofil" class="social-card-link" target="_blank">Me connecter</a>
+        <div class="social-card clickable-card" onclick="window.open('https://www.linkedin.com/in/walid-benhaniche-71671a248', '_blank')">
+          <a href="https://www.linkedin.com/in/walid-benhaniche-71671a248" target="_blank">
+            <div class="social-card-icon linkedin">
+              <i class="fab fa-linkedin-in"></i>
+            </div>
+            <h3 class="social-card-title">LinkedIn</h3>
+            <p class="social-card-desc">Connectons-nous professionnellement</p>
+            <span class="social-card-link">Me connecter</span>
+          </a>
         </div>
         
         <div class="social-card">
@@ -884,8 +953,8 @@
             <i class="fab fa-twitter"></i>
           </div>
           <h3 class="social-card-title">Twitter</h3>
-          <p class="social-card-desc">Suivez mes thoughts sur la cybersécurité</p>
-          <a href="https://twitter.com/votreprofil" class="social-card-link" target="_blank">Me suivre</a>
+          <p class="social-card-desc">Profil Twitter non disponible actuellement</p>
+          <span class="social-card-link disabled">Non disponible</span>
         </div>
       </div>
     </div>
@@ -984,15 +1053,19 @@
   <footer class="cyber-footer">
     <p class="footer-text">© 2023 Oualid Benheniche - Tous droits réservés</p>
     <div class="social-links">
-      <a href="https://www.facebook.com/votreprofil" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://wa.me/213697887792" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      <a href="https://t.me/votreprofil" class="social-link" target="_blank"><i class="fab fa-telegram-plane"></i></a>
-      <a href="https://www.instagram.com/votreprofil" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.facebook.com/share/1XgAkNNRYQ/" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://wa.me/qr/KNC23ELNRNGQF1" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://t.me/WALID19981998" class="social-link" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+      <a href="https://www.instagram.com/walidbenhaniche2?igsh=Z3I0Nm13b2gyc2Nn" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
       <a href="mailto:walidcom1999@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
-      <a href="https://www.linkedin.com/in/votreprofil" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://twitter.com/votreprofil" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.linkedin.com/in/walid-benhaniche-71671a248" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
     </div>
   </footer>
+
+  <!-- Bouton de retour en haut -->
+  <a href="#" class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </a>
 
   <!-- Script pour l'arrière-plan 3D -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -1057,6 +1130,35 @@
       profilePhoto.onerror = function() {
         this.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><rect width='200' height='200' fill='%230c1230'/><text x='100' y='100' font-family='Arial' font-size='20' fill='%2300f3ff' text-anchor='middle' dominant-baseline='middle'>WB</text></svg>";
       };
+      
+      // Ajouter des écouteurs d'événements pour les cartes sociales
+      document.querySelectorAll('.clickable-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+          // Empêcher la propagation pour éviter les conflits avec les liens internes
+          if (e.target.tagName !== 'A' && !e.target.closest('a')) {
+            const link = this.querySelector('a');
+            if (link) {
+              window.open(link.href, link.target || '_self');
+            }
+          }
+        });
+      });
+
+      // Gestion du bouton de retour en haut
+      const backToTopButton = document.getElementById('backToTop');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+      
+      backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     });
   </script>
 </body>
