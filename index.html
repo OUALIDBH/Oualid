@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>curriculum vitae - Oualid Benheniche</title>
+  <title>Portfolio - Oualid Benheniche</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -33,6 +33,317 @@
       scroll-behavior: smooth;
     }
 
+    /* صفحة الدخول */
+    #entry-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      background: linear-gradient(135deg, var(--darker), var(--dark));
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #entry-page.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .entry-content {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .entry-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+    }
+
+    .entry-subtitle {
+      font-size: 1.5rem;
+      color: var(--light);
+      margin-bottom: 50px;
+      max-width: 600px;
+    }
+
+    /* زر الطاقة */
+    .power-button {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--darker), #131b3f);
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 25px var(--primary),
+                  inset 0 0 15px rgba(0, 243, 255, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      margin: 30px auto;
+    }
+
+    .power-button::before {
+      content: '';
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      border-radius: 50%;
+      background: var(--dark);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .power-button i {
+      color: var(--primary);
+      font-size: 40px;
+      text-shadow: 0 0 15px var(--primary);
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .power-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 35px var(--primary),
+                  inset 0 0 20px rgba(0, 243, 255, 0.3);
+    }
+
+    .power-button:hover i {
+      color: var(--accent);
+      text-shadow: 0 0 20px var(--accent);
+    }
+
+    .power-button.active {
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 25px var(--primary), inset 0 0 15px rgba(0, 243, 255, 0.2); }
+      100% { box-shadow: 0 0 45px var(--accent), inset 0 0 25px rgba(255, 42, 109, 0.3); }
+    }
+
+    .power-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin-top: 20px;
+      text-shadow: 0 0 10px var(--primary);
+      letter-spacing: 2px;
+    }
+
+    /* صفحة إدخال الرمز السري */
+    #code-entry-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1999;
+      background: linear-gradient(135deg, var(--darker), var(--dark));
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #code-entry-page.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .secure-access {
+      text-align: center;
+      background: rgba(7, 11, 29, 0.9);
+      padding: 40px;
+      border-radius: 20px;
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 40px rgba(0, 243, 255, 0.3),
+                  inset 0 0 20px rgba(0, 243, 255, 0.1);
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .secure-access::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+      z-index: -1;
+      border-radius: 25px;
+      animation: borderAnimation 3s linear infinite;
+      background-size: 300% 300%;
+    }
+
+    @keyframes borderAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .secure-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, var(--primary), var(--light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+    }
+
+    .secure-subtitle {
+      color: var(--light);
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+
+    .code-input-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .code-input {
+      width: 60px;
+      height: 70px;
+      margin: 0 10px;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .code-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(255, 42, 109, 0.5);
+      transform: scale(1.05);
+    }
+
+    .submit-code {
+      padding: 12px 35px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(110, 68, 255, 0.5);
+    }
+
+    .submit-code:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(110, 68, 255, 0.7);
+    }
+
+    .error-message {
+      color: var(--accent);
+      margin-top: 15px;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .error-message.visible {
+      opacity: 1;
+    }
+
+    .access-granted {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--darker);
+      z-index: 2001;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease;
+    }
+
+    .access-granted.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .access-message {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      color: var(--primary);
+      text-shadow: 0 0 20px var(--primary);
+    }
+
+    /* زر الرجوع */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--darker), #131b3f);
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 15px var(--primary),
+                  inset 0 0 10px rgba(0, 243, 255, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+
+    .back-button i {
+      color: var(--primary);
+      font-size: 20px;
+      text-shadow: 0 0 10px var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px var(--primary),
+                  inset 0 0 15px rgba(0, 243, 255, 0.3);
+    }
+
+    .back-button:hover i {
+      color: var(--accent);
+      text-shadow: 0 0 15px var(--accent);
+    }
+
+    /* بقية الأنماط الخاصة بالسيرة الذاتية */
     /* Effet de particules 3D */
     #particles-3d {
       position: fixed;
@@ -625,6 +936,37 @@
       .socials-grid {
         grid-template-columns: 1fr;
       }
+      
+      .entry-title {
+        font-size: 2.5rem;
+      }
+      
+      .entry-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .power-button {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .power-button i {
+        font-size: 30px;
+      }
+      
+      .secure-access {
+        padding: 25px;
+      }
+      
+      .secure-title {
+        font-size: 1.5rem;
+      }
+      
+      .code-input {
+        width: 50px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
     }
 
     /* Styles ajoutés pour améliorer l'accessibilité */
@@ -686,8 +1028,51 @@
   </style>
 </head>
 <body>
+  <!-- صفحة الدخول -->
+  <div id="entry-page">
+    <div class="entry-content">
+      <h1 class="entry-title">OUALID BENHENICHE</h1>
+      <p class="entry-subtitle">Ingénieur en Sécurité Informatique & Administration des Réseaux</p>
+      
+      <div class="power-button" id="powerButton">
+        <i class="fas fa-power-off"></i>
+      </div>
+      
+      <p class="power-text">Appuyez pour démarrer</p>
+    </div>
+  </div>
+
+  <!-- صفحة إدخال الرمز السري -->
+  <div id="code-entry-page">
+    <div class="secure-access">
+      <h2 class="secure-title">ACCÈS SÉCURISÉ</h2>
+      <p class="secure-subtitle">Veuillez entrer le code d'accès pour continuer</p>
+      
+      <div class="code-input-container">
+        <input type="text" class="code-input" maxlength="1" id="digit1" oninput="moveToNext(1)">
+        <input type="text" class="code-input" maxlength="1" id="digit2" oninput="moveToNext(2)">
+        <input type="text" class="code-input" maxlength="1" id="digit3" oninput="moveToNext(3)">
+        <input type="text" class="code-input" maxlength="1" id="digit4" oninput="moveToNext(4)">
+      </div>
+      
+      <button class="submit-code" id="submitCode">VALIDER</button>
+      
+      <p class="error-message" id="errorMessage">Code incorrect. Veuillez réessayer.</p>
+    </div>
+  </div>
+
+  <!-- رسالة الوصول المسموح -->
+  <div class="access-granted" id="accessGranted">
+    <h2 class="access-message">ACCÈS AUTORISÉ</h2>
+  </div>
+
   <!-- Arrière-plan 3D -->
   <div id="particles-3d"></div>
+
+  <!-- زر الرجوع -->
+  <div class="back-button" id="backButton">
+    <i class="fas fa-arrow-left"></i>
+  </div>
 
   <!-- Navigation -->
   <nav class="cyber-nav">
@@ -1067,9 +1452,142 @@
     <i class="fas fa-arrow-up"></i>
   </a>
 
-  <!-- Script pour l'arrière-plan 3D -->
+  <!-- Script pour إدارة الواجهة -->
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
+    // إدارة صفحة الدخول
+    const entryPage = document.getElementById('entry-page');
+    const codeEntryPage = document.getElementById('code-entry-page');
+    const accessGranted = document.getElementById('accessGranted');
+    const powerButton = document.getElementById('powerButton');
+    const backButton = document.getElementById('backButton');
+    const submitCode = document.getElementById('submitCode');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    // إخفاء زر الرجوع في البداية
+    backButton.style.display = 'none';
+    
+    // عند النقر على زر الطاقة
+    powerButton.addEventListener('click', function() {
+      // تأثير الضغط على الزر
+      this.classList.add('active');
+      
+      // بعد تأخير بسيط، إخفاء صفحة الدخول وإظهار صفحة إدخال الرمز
+      setTimeout(function() {
+        entryPage.classList.add('hidden');
+        codeEntryPage.classList.add('visible');
+      }, 1000);
+    });
+    
+    // عند النقر على زر الرجوع
+    backButton.addEventListener('click', function() {
+      // إخفاء المحتوى الرئيسي وإظهار صفحة الدخول
+      document.querySelector('.main-container').style.display = 'none';
+      document.querySelector('.cyber-nav').style.display = 'none';
+      document.querySelector('.cyber-footer').style.display = 'none';
+      backButton.style.display = 'none';
+      
+      // إخفاء صفحة إدخال الرمز
+      codeEntryPage.classList.remove('visible');
+      
+      // إظهار صفحة الدخول
+      entryPage.classList.remove('hidden');
+      powerButton.classList.remove('active');
+      
+      // إعادة تعيين حقول إدخال الرمز
+      document.getElementById('digit1').value = '';
+      document.getElementById('digit2').value = '';
+      document.getElementById('digit3').value = '';
+      document.getElementById('digit4').value = '';
+      errorMessage.classList.remove('visible');
+      
+      // التمرير إلى الأعلى
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // التحقق من صحة الرمز
+    submitCode.addEventListener('click', function() {
+      const digit1 = document.getElementById('digit1').value;
+      const digit2 = document.getElementById('digit2').value;
+      const digit3 = document.getElementById('digit3').value;
+      const digit4 = document.getElementById('digit4').value;
+      
+      const code = digit1 + digit2 + digit3 + digit4;
+      
+      if (code === '1962') {
+        // الرمز صحيح
+        codeEntryPage.classList.remove('visible');
+        accessGranted.classList.add('visible');
+        
+        // بعد تأخير بسيط، إظهار المحتوى الرئيسي
+        setTimeout(function() {
+          accessGranted.classList.remove('visible');
+          document.querySelector('.main-container').style.display = 'block';
+          document.querySelector('.cyber-nav').style.display = 'flex';
+          document.querySelector('.cyber-footer').style.display = 'block';
+          backButton.style.display = 'flex';
+        }, 1500);
+      } else {
+        // الرمز غير صحيح
+        errorMessage.classList.add('visible');
+        
+        // اهتزاز حقول الإدخال
+        document.querySelectorAll('.code-input').forEach(input => {
+          input.style.animation = 'shake 0.5s';
+          setTimeout(() => {
+            input.style.animation = '';
+          }, 500);
+        });
+        
+        // إعادة تعيين الحقول بعد خطأ
+        setTimeout(function() {
+          document.getElementById('digit1').value = '';
+          document.getElementById('digit2').value = '';
+          document.getElementById('digit3').value = '';
+          document.getElementById('digit4').value = '';
+          document.getElementById('digit1').focus();
+        }, 1000);
+      }
+    });
+
+    // الانتقال إلى الحقل التالي عند إدخال رقم
+    function moveToNext(current) {
+      const currentInput = document.getElementById('digit' + current);
+      const nextInput = document.getElementById('digit' + (current + 1));
+      
+      if (currentInput.value.length === 1 && nextInput) {
+        nextInput.focus();
+      }
+      
+      // إخفاء رسالة الخطأ عند البدء في الكتابة مرة أخرى
+      errorMessage.classList.remove('visible');
+    }
+
+    // السماح فقط بإدخال الأرقام
+    document.querySelectorAll('.code-input').forEach(input => {
+      input.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+      });
+      
+      // إضافة تأثير الاهتزاز عند الخطأ
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+          20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+      `;
+      document.head.appendChild(style);
+    });
+
+    // السماح بالتحقق من الرمز عند الضغط على Enter
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && codeEntryPage.classList.contains('visible')) {
+        submitCode.click();
+      }
+    });
+
     // Configuration de l'arrière-plan 3D
     document.addEventListener('DOMContentLoaded', function() {
       particlesJS('particles-3d', {
@@ -1123,6 +1641,14 @@
         },
         retina_detect: true
       });
+
+      // إخفاء المحتوى الرئيسي في البداية
+      document.querySelector('.main-container').style.display = 'none';
+      document.querySelector('.cyber-nav').style.display = 'none';
+      document.querySelector('.cyber-footer').style.display = 'none';
+
+      // التركيز على أول حقل إدخال عند ظهور صفحة الرمز
+      document.getElementById('digit1').focus();
 
       // Charger l'image de profil
       const profilePhoto = document.getElementById('profilePhoto');
