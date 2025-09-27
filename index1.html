@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberAI - قاعدة بيانات المشاكل (أكثر من 100 مشكلة)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =======================================
+           1. الأنماط الأساسية والمتغيرات السيبرانية
+           ======================================= */
+        :root {
+            --primary: #0a122c;
+            --secondary: #162755;
+            --accent: #4a80f5;
+            --accent-glow: #5d8eff;
+            --neon-blue: #00c6ff;
+            --neon-purple: #7700ff;
+            --cyber-green: #00ff9d;
+            --cyber-yellow: #ffef00;
+            --cyber-pink: #ff2a6d;
+            --text: #ffffff;
+            --text-secondary: #b8c2e0;
+            --gradient-1: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            --gradient-2: linear-gradient(135deg, var(--cyber-green), var(--accent));
+            --gradient-3: linear-gradient(135deg, var(--cyber-pink), var(--neon-purple));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(29, 72, 191, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 255, 157, 0.1) 0%, transparent 25%);
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 198, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 198, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+
+        .hidden { display: none !important; }
+        
+        /* تأثير الاهتزاز عند الخطأ في الدخول */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        /* =======================================
+           2. واجهة تسجيل الدخول
+           ======================================= */
+        #login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .login-container {
+            background: rgba(22, 39, 85, 0.7);
+            backdrop-filter: blur(12px);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 15px rgba(74, 128, 245, 0.4),
+                0 0 40px rgba(0, 198, 255, 0.2);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            border: 1px solid rgba(74, 128, 245, 0.3);
+            transition: all 0.5s ease;
+            position: relative; /* مهم للـ LED */
+            overflow: hidden; /* مهم للـ LED */
+        }
+
+        .logo { margin-bottom: 2rem; }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
+            border: 3px solid var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px var(--neon-blue);
+            animation: pulse 2s infinite alternate;
+        }
+        .logo-icon i {
+            font-size: 2.2rem; 
+            color: var(--neon-blue);
+            text-shadow: 0 0 8px var(--neon-blue);
+        }
+        @keyframes pulse {
+            from { box-shadow: 0 0 10px var(--neon-blue); }
+            to { box-shadow: 0 0 20px var(--neon-blue); }
+        }
+        
+        .logo h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+        }
+        .logo h2 .neon-text {
+            color: var(--cyber-green);
+            text-shadow: 0 0 10px var(--cyber-green);
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 0 5px;
+            border-bottom: 2px solid var(--secondary);
+            transition: border-bottom-color 0.3s, box-shadow 0.3s;
+        }
+        .input-group:focus-within {
+            border-bottom-color: var(--cyber-green); 
+            box-shadow: 0 2px 10px rgba(0, 255, 157, 0.5);
+        }
+        .input-group i {
+            color: var(--accent);
+            margin-left: 15px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        .input-group:focus-within i { color: var(--cyber-green); }
+        
+        .input-group input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 0;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 10px;
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 5px 20px rgba(0, 198, 255, 0.4);
+            letter-spacing: 1px;
+        }
+        .login-btn:hover {
+            box-shadow: 0 10px 30px rgba(0, 198, 255, 0.7);
+            transform: translateY(-2px);
+            color: var(--text);
+        }
+        
+        #login-message {
+            margin-top: 15px;
+            padding: 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        /* =======================================
+           2.5. تأثير أضواء LED عند النجاح
+           ======================================= */
+        .cyber-led-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .cyber-led-glow.active {
+            opacity: 1;
+            animation: fullGlow 1.5s ease-in-out forwards;
+        }
+        
+        @keyframes fullGlow {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0; transform: scale(1); }
+        }
+
+        .led-strip {
+            position: absolute;
+            height: 5px;
+            width: 100%;
+            background: var(--gradient-2);
+            box-shadow: 0 0 15px var(--cyber-green), 0 0 25px var(--accent-glow);
+            animation: ledMove 1.5s infinite linear;
+        }
+
+        .led-strip.top { top: 0; transform: translateX(-100%); animation-duration: 1.5s; }
+        .led-strip.right { top: 0; right: 0; width: 5px; height: 100%; transform: translateY(-100%); animation: ledMoveY 1.5s infinite linear; }
+        .led-strip.bottom { bottom: 0; transform: translateX(100%); animation-direction: reverse; animation-duration: 1.5s; }
+        .led-strip.left { bottom: 0; left: 0; width: 5px; height: 100%; transform: translateY(100%); animation: ledMoveY 1.5s infinite linear reverse; }
+
+        @keyframes ledMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        @keyframes ledMoveY {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        
+        /* =======================================
+           3. صفحة المشاكل الرئيسية (بقية الأنماط)
+           ======================================= */
+        
+        .cyber-security-tag {
+            color: var(--text-secondary);
+            margin-top: 2rem;
+            font-size: 0.9em;
+        }
+        .cyber-security-tag i {
+            color: var(--cyber-green);
+            margin-left: 5px;
+        }
+        .back-to-login {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-3);
+            color: var(--text);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 42, 109, 0.5);
+            z-index: 1000;
+        }
+        
+        .header-bg {
+            background: rgba(10, 18, 44, 0.95);
+            padding: 3rem 0 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--accent-glow);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            backdrop-filter: blur(5px);
+        }
+        
+        .header-bg h1 {
+            font-size: 3rem;
+            color: var(--cyber-green);
+            text-shadow: 0 0 15px var(--cyber-green);
+        }
+        
+        .header-bg p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* شريط البحث */
+        .search-bar {
+            width: 90%;
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            background-color: rgba(74, 128, 245, 0.1);
+            border-radius: 12px;
+            padding: 0.7rem 1.5rem;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(74, 128, 245, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar input {
+            flex-grow: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            padding: 0 10px;
+        }
+        
+        .search-bar i {
+            color: var(--cyber-green);
+            font-size: 1.2rem;
+        }
+
+        .main-content {
+            padding: 2.5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* أزرار التصفية والتحكم */
+        .filter-buttons, .admin-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn, .admin-btn {
+            background-color: var(--secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--accent);
+            padding: 0.8rem 1.6rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--accent);
+            color: var(--text);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        
+        .filter-btn.active {
+            background: var(--gradient-2);
+            color: var(--primary);
+            border-color: var(--cyber-green);
+            box-shadow: 0 0 20px var(--cyber-green);
+        }
+        
+        .admin-controls {
+            background: rgba(0, 198, 255, 0.05);
+            border: 1px dashed var(--neon-blue);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .admin-btn {
+            background-color: rgba(22, 39, 85, 0.9);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+        .admin-btn:hover {
+            background-color: var(--neon-blue);
+            color: var(--primary);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+        
+        /* تصميم بطاقات المشاكل (Data Cards) */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .category-card {
+            background-color: rgba(22, 39, 85, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            padding: 2.5rem;
+            border: 2px solid var(--secondary);
+            transition: all 0.5s ease;
+        }
+
+        .category-card h2 {
+            font-size: 1.7rem;
+            color: var(--cyber-green);
+            border-bottom: 3px solid var(--cyber-green);
+            padding-bottom: 0.7rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+        }
+
+        .problem {
+            background-color: rgba(10, 18, 44, 0.8);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        /* وضع الإدارة - تلوين خاص */
+        .problem.edit-mode-active {
+            border-left: 5px solid var(--cyber-pink);
+            cursor: pointer;
+        }
+        .problem.edit-mode-active:hover {
+            box-shadow: 0 0 15px var(--cyber-pink);
+        }
+
+        .problem:hover {
+            border-left-color: var(--neon-blue);
+            background-color: rgba(12, 20, 48, 0.9);
+        }
+
+        .problem-title {
+            font-size: 1.1rem;
+            color: var(--text);
+            cursor: pointer;
+            padding: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .problem-title i {
+            color: var(--accent-glow);
+            transition: transform 0.3s;
+        }
+
+        .problem-content {
+            padding: 1rem 0 0.5rem;
+            border-top: 1px dashed var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        .problem-content h4 {
+            color: var(--cyber-green);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+            padding-bottom: 5px;
+        }
+        
+        .problem-content ul {
+            padding-right: 1.5rem;
+            list-style: none;
+            margin-top: 5px;
+        }
+
+        .problem-content ul li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .problem-content ul li::before {
+            content: ">>";
+            color: var(--neon-blue);
+            position: absolute;
+            right: -25px;
+            top: 0;
+            font-size: 0.8em;
+        }
+        
+        /* =======================================
+           4. أنماط الـ CRUD Modal (نموذج الإدارة)
+           ======================================= */
+        .crud-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .crud-form-container {
+            background: var(--secondary);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 650px;
+            box-shadow: 0 0 30px var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            color: var(--text);
+        }
+        .crud-form-container h3 {
+            border-bottom: 2px solid var(--cyber-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--cyber-green);
+            text-align: center;
+        }
+        .crud-form-container label {
+            display: block;
+            margin-bottom: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+            color: var(--accent-glow);
+        }
+        .crud-form-container input[type="text"], 
+        .crud-form-container textarea, 
+        .crud-form-container select {
+            width: 100%;
+            padding: 10px;
+            background: var(--primary);
+            border: 1px solid var(--accent);
+            border-radius: 5px;
+            color: var(--text);
+            resize: vertical;
+            font-size: 1rem;
+        }
+        .crud-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        .crud-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        #saveBtn { background: var(--cyber-green); color: var(--primary); }
+        #deleteBtn { background: var(--cyber-pink); color: var(--text); }
+        #cancelBtn { background: #555; color: var(--text); }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <div class="cyber-security-tag" style="position: fixed; bottom: 20px; right: 20px; z-index: 50;">
+        <i class="fas fa-shield-alt"></i>
+        <span>نظام محمي بتقنيات الذكاء الاصطناعي</span>
+    </div>
+
+    <div id="login-page">
+        <div class="login-container">
+            <div class="cyber-led-glow" id="successGlow">
+                <div class="led-strip top"></div>
+                <div class="led-strip right"></div>
+                <div class="led-strip bottom"></div>
+                <div class="led-strip left"></div>
+            </div>
+
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-brain-circuit"></i>
+                </div>
+                <h2>Cyber<span class="neon-text">AI</span></h2>
+            </div>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">البوابة الذكية لأنظمة الأمن السيبراني والشبكات المتقدمة</p>
+            
+            <div class="input-group">
+                <i class="fas fa-user-shield"></i>
+                <input type="text" id="username" placeholder="اسم المستخدم (user أو admin)">
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="كلمة المرور (user2024 أو CyberAI@2024)">
+            </div>
+            
+            <button class="login-btn" onclick="login()">الوصول الآمن <i class="fas fa-fingerprint"></i></button>
+            
+            <button class="login-btn webauthn-btn" id="biometricBtn" style="margin-top: 15px; background: var(--gradient-2); color: var(--primary);" onclick="startBiometricLogin()">
+                الدخول بالبصمة / الوجه <i class="fas fa-fingerprint"></i>
+            </button>
+
+            <p id="login-message"></p>
+        </div>
+    </div>
+
+    <div id="main-page" class="hidden">
+        <button class="back-to-login" onclick="logout()"><i class="fas fa-sign-out-alt"></i> الخروج</button>
+
+        <header class="header-bg">
+            <h1>CyberFix Database</h1>
+            <p>دليلك الشامل لحل مشاكل الحاسوب والشبكات المتقدمة</p>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="ابحث عن رمز خطأ، مشكلة، أو حل تقني...">
+            </div>
+        </header>
+    
+        <main class="main-content">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all"><i class="fas fa-list-alt"></i> الكل</button>
+                <button class="filter-btn" data-filter="computers"><i class="fas fa-desktop"></i> حواسيب</button>
+                <button class="filter-btn" data-filter="networks"><i class="fas fa-network-wired"></i> شبكات</button>
+                <button class="filter-btn" data-filter="printers"><i class="fas fa-print"></i> طابعات</button>
+            </div>
+    
+            <div class="admin-controls hidden" id="adminControls">
+                <button class="admin-btn btn-add" onclick="showCrudModal('add')"><i class="fas fa-plus"></i> إضافة مشكلة</button>
+                
+                <button class="admin-btn btn-register-bio" onclick="registerBiometric()"><i class="fas fa-fingerprint"></i> تسجيل البصمة/الوجه</button>
+
+                <button class="admin-btn btn-toggle" id="toggleEditModeBtn" onclick="toggleEditMode()"><i class="fas fa-user-lock"></i> وضع الإدارة (مغلق)</button>
+            </div>
+    
+            <section id="solutions-list" class="solutions-grid">
+                </section>
+        </main>
+    </div>
+    
+    <div class="crud-modal hidden" id="crudModal">
+        <div class="crud-form-container">
+            <h3 id="crudModalTitle">إضافة مشكلة جديدة</h3>
+            <form id="crudForm">
+                <input type="hidden" id="crudIndex">
+                <input type="hidden" id="crudOldCategory">
+                
+                <label for="crudCategorySelect"><i class="fas fa-list-alt"></i> فئة المشكلة:</label>
+                <select id="crudCategorySelect">
+                    <option value="computers">الحواسيب</option>
+                    <option value="networks">الشبكات</option>
+                    <option value="printers">الطابعات</option>
+                </select>
+
+                <label for="crudProblem"><i class="fas fa-bug"></i> المشكلة / العطل:</label>
+                <textarea id="crudProblem" rows="3" placeholder="أدخل وصف المشكلة"></textarea>
+
+                <label for="crudSolution1"><i class="fas fa-tools"></i> الحل الأول (فوري/برمجي):</label>
+                <textarea id="crudSolution1" rows="3" placeholder="أدخل الحل الفوري أو البرمجي"></textarea>
+
+                <label for="crudSolution2"><i class="fas fa-cogs"></i> الحل الثاني (صيانة/عتاد):</label>
+                <textarea id="crudSolution2" rows="3" placeholder="أدخل حل الصيانة أو العتاد"></textarea>
+                
+                <div class="crud-actions">
+                    <button type="button" id="deleteBtn" class="hidden" onclick="deleteProblem()">
+                        <i class="fas fa-trash-alt"></i> حذف
+                    </button>
+                    <button type="button" id="saveBtn" onclick="saveProblem()">
+                        <i class="fas fa-save"></i> حفظ
+                    </button>
+                    <button type="button" id="cancelBtn" onclick="hideCrudModal()">
+                        <i class="fas fa-times-circle"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ====================================
+        // 5. DATA AND CONSTANTS
+        // تم تحديث فئات المشاكل لتطابق الأزرار (computers, networks, printers)
+        // ====================================
+
+        const USERS = {
+            'user': { password: 'user2024', role: 'guest' },
+            'admin': { password: 'CyberAI@2024', role: 'admin' }
+        };
+
+        let currentRole = 'guest';
+        let isEditMode = false;
+        
+        // **قاعدة بيانات المشاكل الكاملة والمحدثة (أكثر من 110 مشكلة)**
+        let PROBLEMS_DATA = {
+            computers: [
+                { id: 1, problem: 'بطء شديد في التشغيل والإقلاع.', solution1: 'تعطيل برامج بدء التشغيل غير الضرورية من مدير المهام (Task Manager).', solution2: 'تحويل القرص الصلب إلى SSD أو التأكد من سلامة القرص الحالي.' },
+                { id: 2, problem: 'الشاشة الزرقاء (BSOD) المتكررة.', solution1: 'تحديث برامج التشغيل (Drivers) وخاصةً لبطاقة الرسوميات والشرائح (Chipset).', solution2: 'تشغيل أداة تشخيص الذاكرة (Windows Memory Diagnostic) لفحص الـ RAM.' },
+                { id: 3, problem: 'ارتفاع درجة حرارة المعالج (CPU).', solution1: 'تنظيف مراوح التبريد والمشتت الحراري من الغبار باستخدام هواء مضغوط.', solution2: 'تغيير المعجون الحراري (Thermal Paste) على المعالج.' },
+                { id: 4, problem: 'الجهاز لا يعمل عند الضغط على زر الطاقة.', solution1: 'التأكد من توصيل كابل الطاقة بشكل صحيح والتحقق من زر مزود الطاقة (PSU) الخلفي.', solution2: 'إعادة توصيل أسلاك اللوحة الأمامية (Front Panel Connectors) باللوحة الأم.' },
+                { id: 5, problem: 'توقف التطبيقات عن الاستجابة (تجمد).', solution1: 'استخدام `Ctrl + Shift + Esc` لفتح مدير المهام وإيقاف العملية المتسببة في التوقف.', solution2: 'فحص سجل الأحداث (Event Viewer) لتحديد مصدر الخطأ في النظام وإصلاحه.' },
+                { id: 6, problem: 'انخفاض مفاجئ في أداء الألعاب والرسوميات.', solution1: 'التأكد من أن الجهاز يستخدم بطاقة الرسوميات المخصصة (Dedicated GPU) وليس المدمجة.', solution2: 'فحص إعدادات DirectX و OpenGL وتحديث مكتبات النظام.' },
+                { id: 7, problem: 'صوت مروحة مرتفع جداً بشكل مستمر.', solution1: 'تعديل منحنى سرعة المروحة (Fan Curve) من إعدادات BIOS أو برنامج اللوحة الأم.', solution2: 'استبدال المروحة القديمة أو التالفة بمروحة جديدة ذات جودة عالية.' },
+                { id: 8, problem: 'فقدان البيانات أو تلف الملفات بشكل متكرر.', solution1: 'تشغيل فحص النظام (SFC /scannow) عبر موجه الأوامر لمعالجة ملفات النظام التالفة.', solution2: 'التحقق من حالة القرص الصلب باستخدام برامج مثل CrystalDiskInfo.' },
+                { id: 9, problem: 'مشاكل في الصوت (لا يوجد صوت أو صوت مشوه).', solution1: 'التأكد من تثبيت برامج تشغيل الصوت الصحيحة والمحدثة (Realtek أو غيرها).', solution2: 'فحص وصلات مكبرات الصوت والتأكد من عدم وجود تعارض مع أجهزة USB.' },
+                { id: 10, problem: 'الجهاز يعيد التشغيل بشكل عشوائي دون سبب واضح.', solution1: 'فحص استقرار التيار الكهربائي الواصل للجهاز (باستخدام UPS أو حماية من الفولتية).', solution2: 'فحص جودة مزود الطاقة (PSU) والتأكد من أنه يوفر الطاقة الكافية للمكونات.' },
+                { id: 11, problem: 'ظهور إعلانات ونوافذ منبثقة غير مرغوب فيها.', solution1: 'استخدام برامج مكافحة البرامج الضارة (Malwarebytes) لإزالة برامج الإعلانات.', solution2: 'إعادة تعيين إعدادات المتصفح إلى الوضع الافتراضي.' },
+                { id: 12, problem: 'لا يمكن تثبيت تحديثات ويندوز (أخطاء تحديث).', solution1: 'تشغيل مستكشف أخطاء تحديث ويندوز (Windows Update Troubleshooter).', solution2: 'إعادة تسمية مجلدات توزيع البرامج (SoftwareDistribution) وإعادة بدء الخدمة.' },
+                { id: 13, problem: 'شاشة سوداء عند الإقلاع (بعد شاشة BIOS).', solution1: 'فصل جميع الأجهزة الطرفية غير الضرورية (USB) ومحاولة الإقلاع مجدداً.', solution2: 'الدخول إلى الوضع الآمن (Safe Mode) والتحقق من آخر برنامج أو تحديث تم تثبيته.' },
+                { id: 14, problem: 'صعوبة في توصيل أو استخدام أجهزة USB جديدة.', solution1: 'حذف برامج تشغيل USB غير المستخدمة من مدير الأجهزة (Device Manager).', solution2: 'تحديث BIOS/UEFI اللوحة الأم للحصول على أفضل توافقية منافذ.' },
+                { id: 15, problem: 'رسالة خطأ "Low Disk Space" باستمرار.', solution1: 'تنظيف القرص باستخدام أداة تنظيف القرص المدمجة في ويندوز (Disk Cleanup).', solution2: 'نقل الملفات الكبيرة (مثل الفيديوهات) إلى قرص صلب خارجي أو سحابة.' },
+                { id: 16, problem: 'تعطل مفتاح Caps Lock أو Num Lock.', solution1: 'إعادة تثبيت برنامج تشغيل لوحة المفاتيح من مدير الأجهزة.', solution2: 'فحص التوصيلات الداخلية أو استبدال لوحة المفاتيح إذا كانت جزءاً من اللابتوب.' },
+                { id: 17, problem: 'فقدان إشارة الفيديو (No Signal) بعد تحديث.', solution1: 'الإقلاع في وضع الدقة المنخفضة وإعادة تثبيت برنامج تشغيل بطاقة الرسوميات.', solution2: 'فحص كابل الشاشة (HDMI/DP) وتوصيله ببطاقة الرسوميات المخصصة (وليس اللوحة الأم).' },
+                { id: 18, problem: 'وميض الشاشة أو تشوه الألوان.', solution1: 'تغيير معدل تحديث الشاشة (Refresh Rate) في الإعدادات.', solution2: 'فحص كابل البيانات الداخلي للشاشة (مثل كابل LVDS في اللابتوب).' },
+                { id: 19, problem: 'فشل في إلغاء تثبيت برنامج (خطأ 1721).', solution1: 'استخدام أداة تنظيف سجلات التثبيت (مثل Windows Installer Cleanup Utility).', solution2: 'إلغاء التثبيت يدوياً عبر محرر السجل (Registry Editor) (للمستخدم المتقدم فقط).' },
+                { id: 20, problem: 'ملفات DLL مفقودة (Missing DLL errors).', solution1: 'تشغيل فحص مدقق ملفات النظام (SFC) وأمر DISM.', solution2: 'إعادة تثبيت البرنامج الذي يتطلب ملف DLL أو البحث عن الملف في موقعه الأصلي.' },
+                { id: 21, problem: 'عدم عمل زر البدء (Start Button) في ويندوز.', solution1: 'إعادة تسجيل حزم تطبيقات ويندوز باستخدام PowerShell كمسؤول.', solution2: 'إنشاء حساب مستخدم جديد ونقل البيانات إليه (إذا كان الخلل خاصاً بالملف الشخصي).' },
+                { id: 22, problem: 'خطأ في توقيت النظام (System Clock running slow).', solution1: 'مزامنة الوقت مع خادم إنترنت في إعدادات الوقت والتاريخ.', solution2: 'استبدال بطارية CMOS على اللوحة الأم (البطارية الدائرية الصغيرة).' },
+                { id: 23, problem: 'توقف متكرر للماوس/الكيبورد (USB devices disconnecting).', solution1: 'إلغاء تفعيل خاصية "السماح للكمبيوتر بإيقاف تشغيل هذا الجهاز لتوفير الطاقة" لمنافذ USB في مدير الأجهزة.', solution2: 'توصيل الأجهزة بمنافذ USB مختلفة أو استخدام موزع (Hub) يعمل بالطاقة.' },
+                { id: 24, problem: 'ظهور خطأ "Boot Device Not Found".', solution1: 'التحقق من ترتيب الإقلاع في إعدادات BIOS/UEFI والتأكد من اختيار القرص الصحيح.', solution2: 'فحص كابلات SATA/M.2 الواصلة للقرص الصلب والتأكد من سلامتها.' },
+                { id: 25, problem: 'عدم القدرة على الوصول إلى الإعدادات (Settings App Crash).', solution1: 'استخدام موجه الأوامر لتشغيل أدوات النظام التي يمكن الوصول إليها من الإعدادات.', solution2: 'تشغيل الأداة المساعدة للتحقق من ملفات النظام (System File Checker).' },
+                { id: 26, problem: 'تعذر عمل نسخة احتياطية (Backup failure).', solution1: 'التأكد من وجود مساحة كافية على وجهة التخزين الخارجي وإلغاء فحص قطاعات القرص التالفة.', solution2: 'استخدام برنامج نسخ احتياطي مختلف (مثل Macrium Reflect) بدلاً من الأداة المدمجة.' },
+                { id: 27, problem: 'انقطاع الإنترنت فجأة عند تحميل ملفات كبيرة.', solution1: 'تعطيل جدار الحماية (Firewall) أو برنامج الحماية مؤقتاً للاختبار.', solution2: 'تحديث برنامج تشغيل بطاقة الشبكة (Ethernet/Wi-Fi Adapter).' },
+                { id: 28, problem: 'صوت طنين عالي من داخل صندوق الحاسوب (Coil Whine).', solution1: 'تفعيل إعدادات توفير الطاقة في BIOS أو نظام التشغيل لتقليل الضغط على المكونات.', solution2: 'تغيير أو استبدال المكون الذي يصدر الصوت (عادةً بطاقة الرسوميات أو مزود الطاقة).' },
+                { id: 29, problem: 'لا يمكن تغيير دقة الشاشة (Resolution locked).', solution1: 'إلغاء تثبيت برنامج تشغيل الشاشة العام وإعادة تثبيت برنامج تشغيل بطاقة الرسوميات.', solution2: 'فحص وضع العرض الحالي (عرض واحد/مضاعف) في إعدادات العرض.' },
+                { id: 30, problem: 'مشكلة في إيقاف التشغيل (Shuts down slowly/fails).', solution1: 'تعطيل خاصية الإقلاع السريع (Fast Startup) في إعدادات الطاقة.', solution2: 'فحص سجل أحداث النظام لتحديد العملية التي تؤخر إيقاف التشغيل.' },
+                { id: 31, problem: 'عدم عمل محرك الأقراص الضوئية (DVD/CD drive not reading).', solution1: 'حذف مرشحات (Upper and Lower Filters) من محرر السجل لقارئ الأقراص.', solution2: 'تنظيف عدسة القراءة في محرك الأقراص باستخدام قرص تنظيف خاص.' },
+                { id: 32, problem: 'بطء التصفح في متصفح واحد فقط.', solution1: 'إزالة الإضافات (Extensions) المثبتة مؤخراً أو التي تستهلك موارد كبيرة.', solution2: 'إعادة تعيين إعدادات المتصفح إلى الوضع الافتراضي أو إعادة تثبيته.' },
+                { id: 33, problem: 'توقف الألعاب عن العمل فور تشغيلها (Crash on launch).', solution1: 'تشغيل اللعبة كمسؤول أو في وضع التوافق (Compatibility Mode).', solution2: 'التحقق من سلامة ملفات اللعبة عبر منصة (Steam/Epic) أو فحص متطلبات النظام.' },
+                { id: 34, problem: 'تكرار طلب إعادة تنشيط ويندوز.', solution1: 'تشغيل مستكشف أخطاء التنشيط (Activation Troubleshooter).', solution2: 'تنفيذ أمر `slmgr.vbs /rearm` في موجه الأوامر كمسؤول ثم إعادة التشغيل.' },
+                { id: 35, problem: 'خطأ "NVIDIA/AMD Driver stopped responding".', solution1: 'زيادة قيمة مهلة الكشف عن المشغلات (TDR) في محرر السجل.', solution2: 'استخدام برنامج (DDU) لإزالة برامج التشغيل القديمة بالكامل ثم تثبيت أحدث نسخة.' },
+                { id: 36, problem: 'عدم ظهور أيقونات سطح المكتب بعد الدخول.', solution1: 'النقر بالزر الأيمن على سطح المكتب والتأكد من تفعيل "إظهار أيقونات سطح المكتب".', solution2: 'إنهاء عملية `explorer.exe` ثم إعادة تشغيلها من مدير المهام.' },
+                { id: 37, problem: 'ظهور شاشة BIOS/UEFI في كل مرة يتم فيها التشغيل.', solution1: 'إعادة ضبط إعدادات BIOS إلى الوضع الافتراضي (Load Default Settings).', solution2: 'تحديث BIOS/UEFI اللوحة الأم إذا لم ينجح إعادة الضبط.' },
+                { id: 38, problem: 'عدم القدرة على فتح ملفات PDF أو المستندات.', solution1: 'إعادة تعيين التطبيق الافتراضي لفتح هذه الملفات.', solution2: 'إصلاح تثبيت برنامج العرض (مثل Acrobat Reader) أو استخدام برنامج بديل.' },
+                { id: 39, problem: 'مشكلة في الميكروفون (Input device not detected).', solution1: 'التحقق من أذونات الميكروفون في إعدادات الخصوصية لويندوز.', solution2: 'فحص مدخلات الصوت وتغييرها من "Stereo Mix" إلى الميكروفون الفعلي.' },
+                { id: 40, problem: 'ضعف أداء البطارية في اللابتوب (Rapid discharge).', solution1: 'تنفيذ تقرير صحة البطارية عبر موجه الأوامر: `powercfg /batteryreport`.', solution2: 'استبدال البطارية إذا كانت صحتها أقل من 80% من سعتها الأصلية.' }
+            ],
+            networks: [
+                { id: 41, problem: 'عدم وجود اتصال بالإنترنت (لا يوجد إشارة WAN).', solution1: 'إعادة تشغيل المودم والراوتر (Power Cycle) وانتظر 5 دقائق.', solution2: 'التأكد من صحة بيانات PPPoE (اسم المستخدم وكلمة المرور) من مزود الخدمة.' },
+                { id: 42, problem: 'الإشارة اللاسلكية ضعيفة جدًا.', solution1: 'نقل الراوتر إلى مكان مركزي ومرتفع وخالٍ من العوائق المعدنية.', solution2: 'استخدام مُقوّي إشارة (Repeater) أو نظام شبكة Mesh لتغطية أوسع.' },
+                { id: 43, problem: 'فشل الاتصال بشبكة Wi-Fi (خطأ في المصادقة).', solution1: 'التأكد من صحة كلمة مرور Wi-Fi وإدخالها مجدداً.', solution2: 'إعادة تعيين إعدادات الشبكة اللاسلكية على الجهاز (Forget Network) ثم الاتصال مجدداً.' },
+                { id: 44, problem: 'تعارض عناوين IP على الشبكة المحلية.', solution1: 'تنفيذ أمر تجديد الـ IP: `ipconfig /release` ثم `ipconfig /renew`.', solution2: 'تقليل نطاق توزيع DHCP في إعدادات الراوتر.' },
+                { id: 45, problem: 'بطء شديد في التصفح.', solution1: 'تغيير خوادم DNS إلى خوادم سريعة وموثوقة (مثل Google DNS أو Cloudflare).', solution2: 'فحص جودة كابل الإيثرنت الواصل من الراوتر إلى الجهاز.' },
+                { id: 46, problem: 'جهاز واحد فقط لا يستطيع الاتصال بالشبكة.', solution1: 'التأكد من تفعيل محول الشبكة (Network Adapter) في إعدادات الجهاز.', solution2: 'إعادة تعيين إعدادات TCP/IP في الجهاز باستخدام أمر `netsh int ip reset`.' },
+                { id: 47, problem: 'الشبكة اللاسلكية تختفي وتظهر بشكل متقطع.', solution1: 'تغيير قناة البث اللاسلكي (Wireless Channel) في إعدادات الراوتر لتجنب التداخل.', solution2: 'فحص إذا كانت المشكلة تحدث فقط على تردد 5GHz أو 2.4GHz.' },
+                { id: 48, problem: 'فشل في الوصول إلى صفحة إعدادات الراوتر (192.168.1.1).', solution1: 'التأكد من أن عنوان IP للجهاز ضمن نطاق الراوتر (نفس فئة الشبكة).', solution2: 'محاولة الوصول باستخدام متصفح مختلف أو مسح ذاكرة التخزين المؤقت.' },
+                { id: 49, problem: 'فشل في إنشاء شبكة VPN آمنة.', solution1: 'التأكد من أن الراوتر يسمح بمرور بروتوكولات VPN (مثل PPTP أو L2TP) عبر الجدار الناري.', solution2: 'التحقق من بيانات اعتماد الاتصال (Username/Password) للخادم VPN.' },
+                { id: 50, problem: 'لا يمكن مشاركة الملفات والطابعات عبر الشبكة.', solution1: 'التأكد من تفعيل اكتشاف الشبكة (Network Discovery) ومشاركة الملفات.', solution2: 'إيقاف جدار الحماية (Firewall) مؤقتاً للتحقق من أنه ليس السبب.' },
+                { id: 51, problem: 'تأخير (Latency) عالي جداً في الألعاب عبر الإنترنت.', solution1: 'التأكد من عدم وجود تطبيقات تستخدم النطاق الترددي (Bandwidth) بشكل كبير في الخلفية.', solution2: 'تفعيل جودة الخدمة (QoS) في إعدادات الراوتر لإعطاء الأولوية لحركة الألعاب.' },
+                { id: 52, problem: 'الوصول إلى مواقع محظورة رغم عدم وجود إعدادات حجب.', solution1: 'التحقق من وجود بروكسي (Proxy) أو VPN مُثبّت على المتصفح أو النظام.', solution2: 'فحص ملف المضيفين (hosts file) في نظام التشغيل لإزالة أي قيود إضافية.' },
+                { id: 53, problem: 'انقطاع الاتصال بعد فترة زمنية قصيرة.', solution1: 'تعطيل وضع توفير الطاقة (Power Saving Mode) على محول الشبكة اللاسلكية في الجهاز.', solution2: 'تحديث البرامج الثابتة (Firmware) للراوتر.' },
+                { id: 54, problem: 'بطء الاتصال على الأجهزة القديمة (الجيل السابق).', solution1: 'تغيير وضع الشبكة اللاسلكية إلى (Mixed Mode) يدعم معايير قديمة مثل 802.11b/g.', solution2: 'تقسيم الشبكة إلى تردد 2.4GHz و 5GHz وتوصيل الأجهزة القديمة بتردد 2.4GHz.' },
+                { id: 55, problem: 'تجاوز حدود استخدام البيانات الشهري بشكل سريع.', solution1: 'فحص الأجهزة المتصلة بالشبكة والتحقق من عدم وجود وصول غير مصرح به (غير قانوني).', solution2: 'تفعيل إعدادات مراقبة استخدام البيانات (Data Usage Monitoring) على الراوتر.' },
+                { id: 56, problem: 'فشل في التعيين التلقائي لعنوان IP (APIPA address).', solution1: 'تعيين عنوان IP ثابت خارج نطاق DHCP للاختبار.', solution2: 'إعادة تعيين مكدس TCP/IP بشكل كامل (TCP/IP stack reset).' },
+                { id: 57, problem: 'فشل في الاتصال بالـ NAS/خادم محلي.', solution1: 'التحقق من إعدادات جدار الحماية (Firewall) على كل من الجهاز والخادم.', solution2: 'التأكد من أن الجهاز والخادم يتبادلان نفس بروتوكولات الشبكة (مثل SMB).' },
+                { id: 58, problem: 'عدم القدرة على الوصول إلى موقع معين (DNS resolution failure).', solution1: 'مسح ذاكرة التخزين المؤقت لـ DNS باستخدام أمر `ipconfig /flushdns`.', solution2: 'فحص سجلات الراوتر لمعرفة ما إذا كان يحجب الموقع.' },
+                { id: 59, problem: 'مشكلة في الاتصال أثناء مكالمات الفيديو (Jitter/Packet Loss).', solution1: 'استخدام اتصال سلكي (Ethernet) بدلاً من اللاسلكي.', solution2: 'إعطاء الأولوية (QoS) لحركة مرور مكالمات الفيديو عبر الراوتر.' },
+                { id: 60, problem: 'تجاوز الجدار الناري يسبب بطء غير مبرر.', solution1: 'إنشاء قاعدة سماح محددة بدلاً من إيقاف الجدار الناري بالكامل.', solution2: 'فحص إعدادات فحص العمق للحزم (Deep Packet Inspection) على الراوتر.' },
+                { id: 61, problem: 'فشل في إعادة ضبط إعدادات الراوتر (Factory Reset failure).', solution1: 'التأكد من الضغط على زر إعادة الضبط (Reset Button) لمدة كافية (10-30 ثانية).', solution2: 'تحديث البرنامج الثابت للراوتر في حال استمرار المشكلة.' },
+                { id: 62, problem: 'عدم عمل خاصية UPnP بشكل صحيح.', solution1: 'إعادة تفعيل UPnP في إعدادات الراوتر بعد تعطيله لفترة.', solution2: 'تعيين قاعدة توجيه منفذ يدوية (Manual Port Forwarding) للتطبيق المعني.' },
+                { id: 63, problem: 'بطء شبكة الضيف (Guest Network) جداً.', solution1: 'التحقق من قيود النطاق الترددي المطبقة على شبكة الضيف في إعدادات الراوتر.', solution2: 'زيادة مستوى العزل بين شبكة الضيف والشبكة الرئيسية.' },
+                { id: 64, problem: 'مشكلة في إرسال/استقبال البريد الإلكتروني عبر شبكة معينة.', solution1: 'تغيير إعدادات منفذ SMTP/POP3/IMAP إلى المنافذ البديلة (مثل 587 بدلاً من 25).', solution2: 'فحص إذا كان مزود الخدمة (ISP) يحجب المنافذ القياسية للبريد.' },
+                { id: 65, problem: 'عدم عمل كاميرات المراقبة (IP Cameras) على الشبكة.', solution1: 'تعيين عناوين IP ثابتة (Static IP) للكاميرات لتجنب فقدان الاتصال.', solution2: 'التأكد من أن الكاميرات تستخدم نفس بروتوكولات الأمان (WPA2/WPA3) للشبكة.' },
+                { id: 66, problem: 'رسالة خطأ "Cable unplugged" رغم توصيل الكابل.', solution1: 'تغيير كابل الإيثرنت (Cat5e/Cat6) وفحص جودة التوصيل (الكبس).', solution2: 'فحص منفذ الإيثرنت على الجهاز وتبديله إلى منفذ آخر على الراوتر.' },
+                { id: 67, problem: 'فشل في تسجيل الدخول إلى الشبكة في بيئة العمل (Domain Login issue).', solution1: 'التحقق من إعدادات ملقم DNS في الجهاز (يجب أن يشير إلى متحكم المجال).', solution2: 'إعادة تعيين كلمة المرور على متحكم المجال (Domain Controller).' },
+                { id: 68, problem: 'مشكلة في بث الوسائط (Media Streaming) بين الأجهزة.', solution1: 'تفعيل خاصية DLNA أو UPnP على جهاز الخادم (Server).', solution2: 'التحقق من دعم بروتوكول البث المتعدد (Multicast) في الراوتر.' },
+                { id: 69, problem: 'هجمات حرمان الخدمة (DoS attacks) تضرب الراوتر.', solution1: 'تفعيل إعدادات الحماية ضد هجمات DoS في الراوتر.', solution2: 'إيقاف ميزة الرد على طلبات Ping الخارجية (Disable WAN Ping Response).' },
+                { id: 70, problem: 'فشل في ربط الأجهزة الذكية بالشبكة (IoT devices).', solution1: 'التأكد من استخدام تردد 2.4GHz فقط، حيث أن أغلب أجهزة IoT لا تدعم 5GHz.', solution2: 'تقليل إعدادات قوة الإشارة (Transmit Power) للراوتر.' },
+                { id: 71, problem: 'سرعة التحميل ممتازة لكن سرعة الرفع بطيئة جداً.', solution1: 'إجراء اختبار سرعة على عدة مواقع مختلفة للتأكد من المشكلة.', solution2: 'التواصل مع مزود الخدمة (ISP) للتحقق من التوازن في خط الإنترنت.' },
+                { id: 72, problem: 'عدم القدرة على استخدام نقطة اتصال الهاتف المحمول (Hotspot).', solution1: 'التحقق من إعدادات توفير الطاقة في الهاتف التي قد تعطل نقطة الاتصال.', solution2: 'التأكد من أن خطة البيانات تسمح بمشاركة الإنترنت (Tethering).' },
+                { id: 73, problem: 'مشكلة في عمل بروتوكول IPv6.', solution1: 'إعادة تعيين إعدادات الشبكة والسماح للجهاز بالحصول على IP تلقائياً.', solution2: 'تعطيل IPv6 في إعدادات الراوتر والاكتفاء بـ IPv4 مؤقتاً.' },
+                { id: 74, problem: 'تداخل الإشارة مع شبكات الجيران.', solution1: 'استخدام محلل Wi-Fi (Wi-Fi Analyzer App) لاختيار أفضل قناة غير مستخدمة.', solution2: 'استخدام تقنية Beamforming في الراوتر لتركيز الإشارة نحو الأجهزة.' },
+                { id: 75, problem: 'فشل في الاتصال بمقبس الشبكة (Ethernet Jack) في الحائط.', solution1: 'فحص جودة كبس الكابل في المقبس باستخدام أداة فحص (Cable Tester).', solution2: 'التأكد من التوصيل الصحيح لأطراف الكابل (T568A أو T568B).' }
+            ],
+            printers: [
+                { id: 76, problem: 'الطابعة لا تستجيب لأوامر الطباعة.', solution1: 'إعادة تشغيل خدمة التخزين المؤقت للطباعة (Print Spooler).', solution2: 'حذف جميع المهام العالقة من قائمة انتظار الطباعة.' },
+                { id: 77, problem: 'انحشار الورق المتكرر.', solution1: 'التأكد من استخدام نوع وحجم ورق مناسب وعدم تجاوز سعة الدرج.', solution2: 'تنظيف بكرات سحب الورق برفق بقطعة قماش مبللة بالكحول أو الماء.' },
+                { id: 78, problem: 'طباعة باهتة أو غير واضحة.', solution1: 'التحقق من مستوى الحبر/التونر واستبدال الخراطيش الفارغة.', solution2: 'تشغيل دورة تنظيف لرأس الطباعة من إعدادات الطابعة.' },
+                { id: 79, problem: 'الطابعة تطبع صفحات فارغة.', solution1: 'التأكد من إزالة الشريط الواقي (البرتقالي أو الأصفر) من خراطيش الحبر الجديدة.', solution2: 'التحقق من إعدادات المستند وتأكد من وجود محتوى فعلي للطباعة.' },
+                { id: 80, problem: 'ظهور خطوط عمودية أو أفقية على المطبوعات.', solution1: 'تنظيف رأس الطباعة/الفتحات (Print Head/Nozzles) عدة مرات.', solution2: 'تنظيف وحدة المصهر (Fuser Unit) أو الأسطوانة (Drum Unit) إذا كانت طابعة ليزر.' },
+                { id: 81, problem: 'رسالة خطأ "Offline" بالرغم من توصيل الطابعة.', solution1: 'الذهاب إلى إعدادات الطابعة والتأكد من إلغاء تحديد خيار "Use Printer Offline".', solution2: 'إعادة تعيين منفذ الطابعة (Printer Port) في إعدادات النظام.' },
+                { id: 82, problem: 'الطابعة تطبع بخطوط مشوهة أو متعرجة.', solution1: 'تشغيل محاذاة رأس الطباعة (Print Head Alignment) من قائمة أدوات الطابعة.', solution2: 'التحقق من دقة الطباعة المحددة (DPI) في إعدادات الطباعة.' },
+                { id: 83, problem: 'مشاكل في الطباعة على الوجهين (Duplex Printing).', solution1: 'التأكد من أن الطابعة تدعم الطباعة التلقائية على الوجهين.', solution2: 'تحديث برنامج تشغيل الطابعة (Driver) إلى أحدث إصدار يصحح أخطاء الوجهين.' },
+                { id: 84, problem: 'رسالة خطأ "Toner Low" رغم تغيير الخرطوشة.', solution1: 'إجراء إعادة ضبط (Reset) يدوي لمستوى التونر/الحبر للطابعة بعد التغيير.', solution2: 'التأكد من شراء خرطوشة متوافقة وموثوقة.' },
+                { id: 85, problem: 'لا يمكن مشاركة الطابعة عبر الشبكة المحلية.', solution1: 'تفعيل خيار مشاركة الطابعة في خصائص الطابعة على الجهاز المضيف.', solution2: 'التأكد من أن جدار الحماية لا يمنع حركة مرور بروتوكولات الطباعة (Port 445).' },
+                { id: 86, problem: 'الطباعة تستغرق وقتاً طويلاً جداً.', solution1: 'تغيير إعداد جودة الطباعة من "Best Quality" إلى "Draft" أو "Normal".', solution2: 'زيادة ذاكرة الوصول العشوائي (RAM) للطابعة إذا كانت تدعم ذلك (في الطابعات المتقدمة).' },
+                { id: 87, problem: 'ألوان الطباعة لا تتطابق مع الشاشة.', solution1: 'معايرة الألوان (Color Calibration) من إعدادات الطابعة.', solution2: 'استخدام ملف تعريف ألوان (ICC Profile) خاص بالورق والحبر المستخدمين.' },
+                { id: 88, problem: 'الطابعة لا تتعرف على كابل USB.', solution1: 'محاولة توصيل الطابعة بمنفذ USB آخر على الحاسوب.', solution2: 'تغيير كابل USB بالكامل (يجب أن يكون أقل من 5 أمتار).' },
+                { id: 89, problem: 'لا يمكن مسح المستندات (Scanner لا يعمل).', solution1: 'التأكد من تثبيت برامج تشغيل المسح الضوئي (Scanner Driver) بشكل منفصل.', solution2: 'محاولة تشغيل المسح الضوئي من لوحة تحكم الطابعة نفسها بدلاً من الحاسوب.' },
+                { id: 90, problem: 'رسالة خطأ تفيد بأن الغطاء مفتوح بالرغم من إغلاقه.', solution1: 'تنظيف مستشعرات الغطاء (Sensors) للتأكد من عدم وجود غبار أو عائق.', solution2: 'فحص المفصلات والتأكد من إغلاقها بإحكام مع صوت النقرة.' },
+                { id: 91, problem: 'خطأ "Cartridge Not Recognized" بعد تركيب حبر جديد.', solution1: 'إزالة الخرطوشة وإعادة تركيبها مع التأكد من صوت النقرة.', solution2: 'إجراء إعادة تشغيل للطابعة وهي غير موصلة بالكهرباء (Power Cycle).' },
+                { id: 92, problem: 'الطابعة تطبع صفحات نصية مشوشة بأحرف غريبة.', solution1: 'إلغاء تثبيت وإعادة تثبيت برنامج تشغيل الطابعة (Driver).', solution2: 'إجراء اختبار ذاتي للصفحة (Self-Test Page) من الطابعة نفسها.' },
+                { id: 93, problem: 'عدم القدرة على الطباعة من هاتف محمول (Mobile Printing failed).', solution1: 'التأكد من أن الطابعة والهاتف متصلان بنفس شبكة الواي فاي (Subnet).', solution2: 'تحديث تطبيق الطباعة الخاص بالشركة المصنعة على الهاتف.' },
+                { id: 94, problem: 'حافة الصفحة المطبوعة مقطوعة أو غير كاملة.', solution1: 'التحقق من إعدادات حجم الورق في البرنامج والمطابقة لإعدادات الطابعة.', solution2: 'تغيير هوامش المستند إلى هوامش أصغر أو مخصصة.' },
+                { id: 95, problem: 'رسالة خطأ "Paper Jam" مزيفة (لا يوجد ورق عالق).', solution1: 'فحص المستشعرات الداخلية للطابعة وتنظيفها برفق.', solution2: 'إعادة ضبط الطابعة إلى إعدادات المصنع (Factory Reset).' },
+                { id: 96, problem: 'الطابعة تطلب معايرة (Calibration) باستمرار.', solution1: 'التحقق من إغلاق جميع الأغطية والأبواب بشكل صحيح.', solution2: 'استبدال خراطيش الحبر ذات الجودة الرديئة بأخرى أصلية.' },
+                { id: 97, problem: 'حبر الخرطوشة ينتهي بسرعة كبيرة (Excessive ink consumption).', solution1: 'تغيير إعداد الطباعة إلى "Draft" لتقليل استخدام الحبر.', solution2: 'تجنب طباعة الصور والرسومات الكثيفة بالحبر باستمرار.' },
+                { id: 98, problem: 'لا يمكن توصيل الطابعة عبر البلوتوث.', solution1: 'التأكد من أن الطابعة تدعم اتصال البلوتوث وتفعيل وضع الاقتران.', solution2: 'تحديث برنامج تشغيل محول البلوتوث على الحاسوب.' },
+                { id: 99, problem: 'صعوبة في إيجاد برنامج تشغيل الطابعة القديمة (Legacy Driver).', solution1: 'البحث عن برنامج التشغيل في قسم الأرشيف بموقع الشركة المصنعة.', solution2: 'تجربة تثبيت برنامج تشغيل طابعة مشابهة أو أحدث من نفس الفئة.' },
+                { id: 100, problem: 'خطأ في ذاكرة الطابعة (Printer Memory Error).', solution1: 'إلغاء مهام الطباعة المعقدة أو الكبيرة الحجم.', solution2: 'زيادة ذاكرة الطابعة (RAM) إذا كانت من طابعات العمل المتقدمة.' },
+                { id: 101, problem: 'الطباعة تظهر ضبابية أو غير مركزة.', solution1: 'التأكد من خلو الورق من الرطوبة واستخدام ورق تخزين جاف.', solution2: 'فحص بكرة النقل (Transfer Roller) وتنظيفها في طابعات الليزر.' },
+                { id: 102, problem: 'مشكلة في الطباعة من البرامج المكتبية (MS Word/Excel).', solution1: 'محاولة الطباعة من تطبيق آخر (مثل Notepad) لتحديد ما إذا كان الخلل في البرنامج.', solution2: 'إصلاح تثبيت حزمة Microsoft Office.' },
+                { id: 103, problem: 'وميض مستمر لضوء التنبيه دون سبب واضح.', solution1: 'إعادة معايرة الطابعة (Printer Calibration).', solution2: 'التحقق من دليل الطابعة لفك تشفير معنى وميض الضوء.' },
+                { id: 104, problem: 'عدم سحب الورق من الدرج الثاني.', solution1: 'التحقق من إعدادات مصدر الورق الافتراضي في البرنامج.', solution2: 'تنظيف بكرات السحب في الدرج الثاني وتليينها.' },
+                { id: 105, problem: 'خطأ "Low Fuser Temperature" (لطابعات الليزر).', solution1: 'إجراء دورة تبريد للطابعة وإعادة تشغيلها.', solution2: 'استبدال أو إصلاح وحدة المصهر (Fuser Unit) إذا استمر الخطأ.' },
+                { id: 106, problem: 'تلطيخ الورق بالحبر الزائد (Smudging/Streaks).', solution1: 'تغيير نوع الورق في إعدادات الطباعة ليناسب نوع الحبر (لامع/عادي).', solution2: 'تنظيف ماسح (Scraper) الحبر في الطابعات النافثة للحبر.' },
+                { id: 107, problem: 'مشكلة في طباعة الألوان (Missing one color).', solution1: 'تشغيل دورة تنظيف رأس الطباعة مرتين أو ثلاث مرات متتالية.', solution2: 'إزالة الخرطوشة المفقودة وإعادة تركيبها أو استبدالها.' },
+                { id: 108, problem: 'الطابعة تعلق في وضع الإعداد (Setup Mode).', solution1: 'فصل كابل الطاقة وإعادة توصيله مع الضغط على زر الإلغاء.', solution2: 'استخدام أداة الشركة المصنعة لتحديث البرنامج الثابت.' },
+                { id: 109, problem: 'ظهور أرقام ورموز غريبة على شاشة الطابعة.', solution1: 'التحقق من توصيل كابل البيانات (USB/Ethernet) بشكل صحيح.', solution2: 'فحص لوحة الدوائر الرئيسية للطابعة (Formatter Board).' },
+                { id: 110, problem: 'الحاجة إلى إعادة توصيل الطابعة بعد كل تشغيل.', solution1: 'تعيين عنوان IP ثابت (Static IP) للطابعة على الشبكة.', solution2: 'التأكد من أن خدمة "مكتشف وظائف الطباعة" تعمل في نظام التشغيل.' }
+            ]
+        };
+
+        // ====================================
+        // 6. AUTHENTICATION (Login/Logout)
+        // ====================================
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginMessage = document.getElementById('login-message');
+            const userEntry = USERS[username];
+            const loginBtn = document.querySelector('.login-btn');
+            
+            loginMessage.textContent = '';
+            loginBtn.disabled = true;
+
+            if (userEntry && userEntry.password === password) {
+                loginMessage.textContent = 'تم تسجيل الدخول بنجاح! جاري تحميل البوابة...';
+                loginMessage.style.color = 'var(--cyber-green)';
+                loginMessage.style.background = 'rgba(0, 255, 157, 0.1)';
+                currentRole = userEntry.role;
+                simulateLoading(true); // نداء دالة التحميل وتفعيل الأضواء
+            } else {
+                loginMessage.textContent = 'فشل المصادقة: اسم المستخدم أو كلمة المرور غير صحيحة.';
+                loginMessage.style.color = 'var(--cyber-pink)';
+                loginMessage.style.background = 'rgba(255, 42, 109, 0.15)';
+                shakeLoginForm();
+                loginBtn.disabled = false;
+            }
+        }
+        
+        function simulateLoading(isSuccess) {
+            const successGlow = document.getElementById('successGlow');
+            
+            if (isSuccess) {
+                // 1. تفعيل تأثير الأضواء LED
+                successGlow.classList.add('active');
+                
+                // 2. الانتظار حتى ينتهي التأثير (1.5 ثانية) ثم الانتقال للصفحة الرئيسية
+                setTimeout(() => {
+                    document.getElementById('login-page').classList.add('hidden');
+                    document.getElementById('main-page').classList.remove('hidden');
+                    
+                    const adminControls = document.getElementById('adminControls');
+                    if (currentRole === 'admin') {
+                        adminControls.classList.remove('hidden');
+                    } else {
+                        adminControls.classList.add('hidden');
+                    }
+                    
+                    renderProblems(); 
+                    activateSearchAndFilter();
+                    
+                    // إخفاء الأضواء استعداداً لعملية تسجيل دخول جديدة
+                    successGlow.classList.remove('active'); 
+                }, 1500); // 1.5 ثانية تتناسب مع مدة الحركة في CSS
+            }
+        }
+        
+        function logout() {
+            document.getElementById('login-page').classList.remove('hidden');
+            document.getElementById('main-page').classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('login-message').textContent = '';
+            
+            currentRole = 'guest';
+            isEditMode = true; 
+            toggleEditMode();
+            
+            const loginBtn = document.querySelector('.login-btn');
+            loginBtn.innerHTML = 'الوصول الآمن <i class="fas fa-fingerprint"></i>';
+            loginBtn.disabled = false;
+            loginBtn.style.background = 'var(--gradient-1)';
+        }
+
+        function shakeLoginForm() {
+            const loginContainer = document.querySelector('.login-container');
+            loginContainer.style.animation = 'shake 0.5s';
+            
+            setTimeout(() => {
+                loginContainer.style.animation = '';
+            }, 500);
+        }
+
+        // ====================================
+        // 7. RENDERING AND INTERACTIVITY
+        // ====================================
+        
+        // تم تحديث هذه الدالة لإنشاء بطاقات الفئات الجديدة (computers, networks, printers)
+        function renderProblems() {
+            const solutionsList = document.getElementById('solutions-list');
+            solutionsList.innerHTML = '';
+            let globalIdCounter = 1;
+            
+            for (const category in PROBLEMS_DATA) {
+                const problems = PROBLEMS_DATA[category];
+                if (problems.length === 0) continue;
+
+                let categoryTitle = '';
+                if (category === 'computers') categoryTitle = '💻 مشاكل وأعطال الحواسيب';
+                else if (category === 'networks') categoryTitle = '🌐 مشاكل وأعطال أجهزة الشبكات';
+                else if (category === 'printers') categoryTitle = '🖨️ مشاكل وأعطال الطابعات';
+
+                // تم إضافة data-category="${category}" هنا لتسهيل عملية التصفية
+                let categoryHtml = `
+                    <div class="category-card" data-category="${category}">
+                        <h2>${categoryTitle} <span style="font-size:0.8em; color: var(--text-secondary);">(${problems.length} مشكلة)</span></h2>
+                `;
+
+                problems.forEach((item, index) => {
+                    const editClass = (currentRole === 'admin' && isEditMode) ? 'edit-mode-active' : '';
+                    categoryHtml += `
+                        <div class="problem ${editClass}" data-index="${index}" data-category="${category}">
+                            <div class="problem-title" data-index="${index}" data-category="${category}">
+                                <span>${globalIdCounter}. ${item.problem}</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="problem-content hidden">
+                                <h4><i class="fas fa-bolt" style="color: var(--cyber-yellow);"></i> الحل الأول (إجراء فوري/برمجي)</h4>
+                                <ul>
+                                    <li>${item.solution1}</li>
+                                </ul>
+                                
+                                <h4><i class="fas fa-tools" style="color: var(--neon-blue);"></i> الحل الثاني (صيانة/عتاد متقدم)</h4>
+                                <ul>
+                                    <li>${item.solution2}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    globalIdCounter++;
+                });
+
+                categoryHtml += `</div>`;
+                solutionsList.innerHTML += categoryHtml;
+            }
+            
+            activateProblemToggles();
+        }
+        
+        function activateProblemToggles() {
+            document.querySelectorAll('.problem-title').forEach(title => {
+                title.onclick = function() {
+                    const problemDiv = this.parentElement;
+                    
+                    if (currentRole === 'admin' && isEditMode) {
+                        const category = this.getAttribute('data-category');
+                        const index = parseInt(this.getAttribute('data-index'));
+                        showCrudModal('edit', category, index);
+                        return; 
+                    }
+                    
+                    const content = problemDiv.querySelector('.problem-content');
+                    const icon = problemDiv.querySelector('.problem-title i');
+
+                    // إغلاق أي محتوى آخر مفتوح
+                    document.querySelectorAll('.problem-content').forEach(c => {
+                         if (c !== content) {
+                             c.classList.add('hidden');
+                             c.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+                         }
+                    });
+
+                    content.classList.toggle('hidden');
+                    icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+                };
+            });
+        }
+        
+        // تم تحديث هذه الدالة لضمان عمل الفلترة بناءً على data-filter الجديد (computers, networks, printers)
+        function activateSearchAndFilter() {
+            const searchInput = document.getElementById('searchInput');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+
+            // --- وظيفة البحث المحدثة والفعالة ---
+            searchInput.oninput = function() {
+                const searchTerm = this.value.toLowerCase().trim(); 
+                
+                // 1. إلغاء تفعيل أزرار التصفية وإظهار "الكل" عند البحث
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+
+                // إذا كان البحث فارغاً، نعيد عرض كل شيء بشكل طبيعي
+                if (searchTerm === '') {
+                    document.querySelectorAll('.category-card').forEach(card => card.style.display = 'block');
+                    document.querySelectorAll('.problem').forEach(problem => problem.style.display = 'block');
+                    return; 
+                }
+
+                // 2. معالجة كل بطاقة فئة (Category Card) على حدة
+                document.querySelectorAll('.category-card').forEach(card => {
+                    let visibleCount = 0;
+                    const problems = card.querySelectorAll('.problem');
+
+                    problems.forEach(problem => {
+                        const problemText = problem.textContent.toLowerCase();
+                        
+                        // إظهار المشكلة إذا كانت تطابق مصطلح البحث
+                        if (problemText.includes(searchTerm)) {
+                            problem.style.display = 'block';
+                            visibleCount++;
+                        } else {
+                            problem.style.display = 'none';
+                        }
+                        
+                        // إغلاق محتوى الحلول (problem-content) أثناء البحث لتركيز النتائج
+                        const content = problem.querySelector('.problem-content');
+                        const icon = problem.querySelector('.problem-title i');
+                        if (content && !content.classList.contains('hidden')) {
+                            content.classList.add('hidden');
+                            icon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // إخفاء البطاقة بالكامل إذا لم تتطابق أي مشكلة
+                    card.style.display = (visibleCount > 0) ? 'block' : 'none';
+                });
+            };
+            // --- نهاية وظيفة البحث المحدثة ---
+
+            // وظيفة التصفية (فلترة الأزرار) - هذا الجزء هو الذي ينفذ طلبك
+            filterButtons.forEach(btn => {
+                btn.onclick = function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // تفعيل الزر الحالي وإلغاء تفعيل الآخرين
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // مسح البحث عند التصفية
+                    searchInput.value = '';
+                    
+                    const categoryCards = document.querySelectorAll('.category-card');
+                    categoryCards.forEach(card => {
+                        // إذا كان الفلتر "all" أو تتطابق سمة data-category للكارد مع الفلتر، يتم عرضه
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            // التأكد من عرض المشاكل داخل الكارد إذا كانت مخفية بسبب البحث
+                            card.querySelectorAll('.problem').forEach(p => p.style.display = 'block');
+                        } else {
+                            // إخفاء الكارد بالكامل
+                            card.style.display = 'none';
+                        }
+                    });
+                };
+            });
+        }
+        
+        // ====================================
+        // 8. ADMIN CRUD LOGIC (Add/Edit/Delete)
+        // ====================================
+
+        function toggleEditMode() {
+            if (currentRole !== 'admin') return;
+
+            const btn = document.getElementById('toggleEditModeBtn');
+            isEditMode = !isEditMode;
+
+            if (isEditMode) {
+                btn.innerHTML = '<i class="fas fa-unlock"></i> وضع الإدارة (مفتوح)';
+                btn.style.backgroundColor = 'var(--cyber-pink)';
+                alert('تم تفعيل وضع الإدارة. يمكنك النقر على أي مشكلة لتعديلها/حذفها.');
+            } else {
+                btn.innerHTML = '<i class="fas fa-user-lock"></i> وضع الإدارة (مغلق)';
+                btn.style.backgroundColor = 'rgba(22, 39, 85, 0.9)';
+            }
+            renderProblems();
+        }
+
+        function showCrudModal(mode, category = 'computers', index = -1) {
+            const modal = document.getElementById('crudModal');
+            const title = document.getElementById('crudModalTitle');
+            const deleteBtn = document.getElementById('deleteBtn');
+            
+            document.getElementById('crudIndex').value = index;
+            document.getElementById('crudOldCategory').value = category;
+            
+            if (mode === 'add') {
+                title.textContent = 'إضافة مشكلة جديدة';
+                deleteBtn.classList.add('hidden');
+                document.getElementById('crudProblem').value = '';
+                document.getElementById('crudSolution1').value = '';
+                document.getElementById('crudSolution2').value = '';
+                document.getElementById('crudCategorySelect').value = 'computers';
+                document.getElementById('saveBtn').textContent = 'حفظ الإضافة';
+            } else if (mode === 'edit') {
+                const problem = PROBLEMS_DATA[category][index];
+                title.textContent = `تعديل المشكلة: ${problem.problem.substring(0, 30)}...`;
+                deleteBtn.classList.remove('hidden');
+                document.getElementById('crudCategorySelect').value = category;
+                document.getElementById('crudProblem').value = problem.problem;
+                document.getElementById('crudSolution1').value = problem.solution1;
+                document.getElementById('crudSolution2').value = problem.solution2;
+                document.getElementById('saveBtn').textContent = 'حفظ التعديلات';
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function hideCrudModal() {
+            document.getElementById('crudModal').classList.add('hidden');
+        }
+
+        function saveProblem() {
+            const index = parseInt(document.getElementById('crudIndex').value);
+            const oldCategory = document.getElementById('crudOldCategory').value;
+            const newCategory = document.getElementById('crudCategorySelect').value;
+            const problemText = document.getElementById('crudProblem').value;
+            const solution1Text = document.getElementById('crudSolution1').value;
+            const solution2Text = document.getElementById('crudSolution2').value;
+
+            if (!problemText || !solution1Text || !solution2Text) {
+                alert('الرجاء تعبئة جميع الحقول المطلوبة.');
+                return;
+            }
+
+            const newProblem = {
+                id: Date.now(), 
+                problem: problemText,
+                solution1: solution1Text,
+                solution2: solution2Text
+            };
+            
+            if (index === -1) {
+                PROBLEMS_DATA[newCategory].push(newProblem);
+                alert('تمت إضافة المشكلة بنجاح!');
+            } else {
+                if (oldCategory === newCategory) {
+                    PROBLEMS_DATA[oldCategory][index] = { ...newProblem, id: PROBLEMS_DATA[oldCategory][index].id };
+                } else {
+                    PROBLEMS_DATA[oldCategory].splice(index, 1);
+                    PROBLEMS_DATA[newCategory].push(newProblem);
+                }
+                alert('تم حفظ التعديلات بنجاح!');
+            }
+
+            hideCrudModal();
+            renderProblems();
+        }
+
+        function deleteProblem() {
+            const index = parseInt(document.getElementById('crudIndex').value);
+            const category = document.getElementById('crudOldCategory').value;
+
+            if (confirm('هل أنت متأكد من حذف هذه المشكلة بشكل نهائي؟')) {
+                PROBLEMS_DATA[category].splice(index, 1);
+                alert('تم حذف المشكلة بنجاح!');
+                hideCrudModal();
+                renderProblems();
+            }
+        }
+        
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        // ====================================
+        // 9. BIOMETRIC LOGIN (WebAuthn CONCEPTUAL)
+        // ====================================
+        
+        async function startBiometricLogin() {
+            const loginMessage = document.getElementById('login-message');
+            loginMessage.textContent = 'جاري محاولة المصادقة البيومترية...';
+            loginMessage.style.color = 'var(--accent-glow)';
+            loginMessage.style.background = 'rgba(74, 128, 245, 0.1)';
+
+            if (!window.PublicKeyCredential) {
+                loginMessage.textContent = 'المتصفح لا يدعم المصادقة البيومترية (WebAuthn).';
+                loginMessage.style.color = 'var(--cyber-pink)';
+                loginMessage.style.background = 'rgba(255, 42, 109, 0.15)';
+                shakeLoginForm();
+                return;
+            }
+
+            try {
+                // هذا تمثيل افتراضي لعملية طلب المصادقة من النظام
+                const options = {
+                    challenge: new Uint8Array(32), 
+                    allowCredentials: [],
+                    timeout: 60000,
+                    userVerification: "preferred"
+                };
+
+                const assertion = await navigator.credentials.get({ 
+                    publicKey: options 
+                });
+
+                // في هذا المثال التعليمي، نفترض النجاح التلقائي بعد ظهور المربع المنبثق
+                loginMessage.textContent = 'نجاح! تم التحقق من البصمة/الوجه. جاري تسجيل الدخول كضيف.';
+                currentRole = 'guest'; 
+                simulateLoading(true);
+
+            } catch (error) {
+                console.error("WebAuthn Error:", error);
+                loginMessage.textContent = 'فشل التحقق البيومتري. قد تكون البصمة غير مسجلة أو تم إلغاء العملية.';
+                loginMessage.style.color = 'var(--cyber-pink)';
+                loginMessage.style.background = 'rgba(255, 42, 109, 0.15)';
+                shakeLoginForm();
+            }
+        }
+        
+        // ====================================
+        // 10. BIOMETRIC REGISTRATION (WebAuthn CONCEPTUAL)
+        // ====================================
+        
+        async function registerBiometric() {
+            if (currentRole !== 'admin') {
+                alert('عذراً، هذه الخاصية متاحة فقط للمدير.');
+                return;
+            }
+            if (!window.PublicKeyCredential) {
+                alert('المتصفح لا يدعم المصادقة البيومترية (WebAuthn).');
+                return;
+            }
+
+            try {
+                // هذا تمثيل افتراضي لخيارات التسجيل
+                const registrationOptions = {
+                    challenge: new Uint8Array(32), 
+                    rp: { name: "CyberAI Database" }, 
+                    user: {
+                        id: new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]), 
+                        name: "admin", 
+                        displayName: "CyberAI Admin"
+                    },
+                    pubKeyCredParams: [{ alg: -7, type: "public-key" }] 
+                };
+
+                alert('سيظهر لك الآن مربع منبثق لطلب تسجيل بصمتك. اتبع إرشادات النظام.');
+
+                const credential = await navigator.credentials.create({
+                    publicKey: registrationOptions
+                });
+                
+                alert('✅ تم تسجيل بصمتك بنجاح! يمكنك الآن استخدام زر "الدخول بالبصمة/الوجه" في شاشة تسجيل الدخول.');
+                
+            } catch (error) {
+                console.error("Biometric Registration Error:", error);
+                alert('❌ فشل تسجيل البصمة/الوجه. قد تكون العملية غير مدعومة على هذا المتصفح أو تم إلغاؤها.');
+            }
+        }
+    </script>
+</body>
+</html>
